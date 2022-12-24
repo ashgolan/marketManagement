@@ -1,0 +1,15 @@
+import Express from "express";
+import cors from "cors";
+import "./DB/mongoose.js";
+import { clientRouter } from "./router/client.router.js";
+import { transactionRouter } from "./router/transaction.router.js";
+const app = Express();
+app.use(Express.json());
+app.use(cors());
+
+app.use("/clients", clientRouter);
+app.use("/transactions", transactionRouter);
+
+app.listen("5000", () => {
+  console.log("listining to port 5000 ...");
+});
