@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1% auto;
+}
+.form-container {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  width: 60rem;
+  margin: auto;
+  /* border: 1px rgb(139, 80, 80) solid; */
+  border-radius: 20px 0 20px 0;
+  /* border: 1px rgb(228, 197, 58) solid; */
+  /* border-radius: 0.5rem; */
+  box-shadow: rgba(179, 30, 30, 0.4) 0px 0px 0px 1px,
+    rgba(6, 24, 44, 0.65) 0px 2px 1px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+.clientProp {
+  flex: 1 1 20%;
+  text-align: right;
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: rgb(95, 25, 72);
+}
+.edit_delete {
+  display: flex;
+  justify-content: space-between;
+  width: 10%;
+  height: 5%;
+  padding: 1%;
+}
+.fa-pen-to-square {
+  color: rgb(8, 50, 75);
+  font-size: 1.2rem;
+}
+.fa-user-xmark {
+  color: rgb(156, 14, 14);
+  font-size: 1.2rem;
+}
+.fa-chart-line {
+  color: rgb(135, 156, 14);
+  font-size: 1.2rem;
+}

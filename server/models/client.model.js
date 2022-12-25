@@ -2,7 +2,7 @@ import { model, Schema } from "mongoose";
 
 const clientSchema = new Schema({
   firstName: { type: String, required: true },
-  fatherName: { type: String },
+  fatherName: { type: String, default: "לא צויין" },
   lastName: { type: String, required: true },
   phone: {
     type: String,

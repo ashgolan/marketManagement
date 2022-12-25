@@ -12,3 +12,4 @@ transactionRouter.post("/", newTransaction);
 transactionRouter.get("/", getAllTransactions);
 transactionRouter.get("/findByOwner", findTransactionsByOwner);
 transactionRouter.get("/findByDate", findTransactionsByDate);
+// transactionRouter.get("/sum", getSum);

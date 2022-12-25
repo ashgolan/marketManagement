@@ -4,14 +4,21 @@ import "./NavBar.css";
 export default function NavBar() {
   return (
     <ul>
-      <li>הצעת מחיר</li>
-      <Link to="/Clients">
-        <li>הצגת כל הקליינטים</li>
+      <Link to="/">
+        <img src="../img/bid.png"></img>
       </Link>
-      <li>הוספת קליינט</li>
-      <li>עדכון פרטיים</li>
-      <li>מחיקת קליינט</li>
-      <li>ניהול מחסן</li>
+      <Link to="/Clients">
+        <img src="../img/clients2.png"></img>
+      </Link>
+      <Link to="/">
+        <img src="../img/addClient3.png"></img>
+      </Link>
+      <Link to="/">
+        <img src="../img/inventory.png"></img>
+      </Link>
+      <Link to="/">
+        <img src="../img/747668.png"></img>
+      </Link>
     </ul>
   );
 }
