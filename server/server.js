@@ -3,10 +3,12 @@ import cors from "cors";
 import "./DB/mongoose.js";
 import { clientRouter } from "./router/client.router.js";
 import { transactionRouter } from "./router/transaction.router.js";
+import { getAllData } from "./controllers/allData.controller.js";
 const app = Express();
 app.use(Express.json());
 app.use(cors());
 
+app.get("/", getAllData);
 app.use("/clients", clientRouter);
 app.use("/transactions", transactionRouter);
 
