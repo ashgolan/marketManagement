@@ -1,22 +1,46 @@
 .headerProps {
-  flex: 1 1 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 12%;
+  /* flex: 1 1 12%; */
   text-align: right;
   padding: 0.5rem;
   font-size: 1rem;
   font-weight: bold;
-  color: rgb(0, 0, 0);
+  color: rgb(238, 236, 236);
+}
+.headerProps label {
+  cursor: pointer;
 }
 .clients-form-container {
   border: none;
   border-radius: 20px 0 20px 0;
   display: flex;
-  background-color: #f1592f;
+  background-color: #4b4e4c;
   flex-direction: row-reverse;
+  width: 60rem;
+  margin: auto;
   justify-content: space-between;
   box-shadow: rgba(221, 230, 241, 0.4) 0px 0px 0px 1px,
     rgba(233, 166, 166, 0.65) 0px 2px 3px -1px,
     rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
   align-items: center;
-  width: 60rem;
-  margin: auto;
+}
+.updownSort {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1%;
+}
+.updownSort .fa-sort-up,
+.updownSort .fa-sort-down {
+  line-height: 0.1rem;
+  font-size: 1.2rem;
+  color: rgb(255, 230, 0);
+  cursor: pointer;
+}
+.updownSort .fa-sort-up {
+  color: rgb(255, 255, 255);
 }
