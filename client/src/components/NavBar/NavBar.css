@@ -4,7 +4,7 @@ ul {
   display: flex;
   flex-direction: row-reverse;
   list-style-type: none;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 a {
@@ -13,7 +13,11 @@ a {
 ul li {
   color: whitesmoke;
 }
-img {
+ul > i {
+  font-size: 2rem;
+  color: rgb(0, 80, 104);
+}
+.nav-image {
   border: 2px white solid;
   padding: 3%;
   border-radius: 5px 20px 5px;

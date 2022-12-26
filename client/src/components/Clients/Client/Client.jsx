@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import "./Client.css";
 
-export default function Client({ client, clientTransactios, setClientId }) {
+export default function Client({ client, clientTransactios, setClient }) {
   const navigate = useNavigate();
   const [totalAmount, setTotalAmount] = useState(0);
   const getTotalAmount = () => {
@@ -18,7 +18,7 @@ export default function Client({ client, clientTransactios, setClientId }) {
   }, [clientTransactios]);
 
   const openClientPage = () => {
-    setClientId(client._id);
+    setClient(client);
     navigate("/ClientTransactions");
   };
 

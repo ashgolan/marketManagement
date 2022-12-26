@@ -1,0 +1,18 @@
+.addProducts {
+  width: 33%;
+}
+.fa-trash-can {
+  color: brown;
+}
+.edit-delete-transaction {
+  width: 15%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.person-container-header {
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

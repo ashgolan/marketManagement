@@ -9,7 +9,7 @@ import ClientTransactions from "./components/Clients/clientTransactions/ClientTr
 function App() {
   const [clients, setClients] = useState([]);
   const [transactions, setTransactions] = useState([]);
-  const [clientId, setClientId] = useState(null);
+  const [client, setClient] = useState(null);
   useEffect(() => {
     const getClients = async () => {
       const { data } = await axios.get("http://localhost:5000/");
@@ -28,7 +28,7 @@ function App() {
           path="/clients"
           element={
             <Clients
-              setClientId={setClientId}
+              setClient={setClient}
               transactions={transactions}
               setTransactions={setTransactions}
               setClients={setClients}
@@ -39,10 +39,7 @@ function App() {
         <Route
           path="/ClientTransactions"
           element={
-            <ClientTransactions
-              clientId={clientId}
-              transactions={transactions}
-            />
+            <ClientTransactions client={client} transactions={transactions} />
           }
         ></Route>
       </Routes>

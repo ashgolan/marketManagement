@@ -20,7 +20,7 @@
   background-color: #4b4e4c;
   flex-direction: row-reverse;
   width: 60rem;
-  margin: auto;
+  margin:  auto;
   justify-content: space-between;
   box-shadow: rgba(221, 230, 241, 0.4) 0px 0px 0px 1px,
     rgba(233, 166, 166, 0.65) 0px 2px 3px -1px,
