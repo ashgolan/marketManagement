@@ -10,16 +10,16 @@ export default function NavBar() {
       <Link to="/Clients">
         <img className="nav-image" src="../img/clients2.png"></img>
       </Link>
-      <Link to="/">
+      <Link to="/AddClient">
         <img className="nav-image" src="../img/addClient3.png"></img>
       </Link>
-      <Link to="/">
+      <Link to="/SetupPage">
         <img className="nav-image" src="../img/inventory.png"></img>
       </Link>
       <Link to="/">
         <img className="nav-image" src="../img/747668.png"></img>
       </Link>
-      <i class="fa-solid fa-lock"></i>
+      <i className="fa-solid fa-lock"></i>
       {/* <i class="fa-solid fa-unlock"></i> */}
     </ul>
   );

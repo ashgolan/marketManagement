@@ -23,6 +23,7 @@ const transactionsSchema = new Schema({
 
 transactionsSchema.pre("save", function (next) {
   const transaction = this;
+  console.log("before saving..");
   if (transaction.type === "buying") {
     let count = 0;
     transaction.data.forEach((element) => {
@@ -30,10 +31,20 @@ transactionsSchema.pre("save", function (next) {
     });
     transaction.totalAmount = count;
   }
-  // transaction.totalAmount = Object.values(transaction.data).reduce(
-  //   (total, current) => total + current,
-  //   0
-  // );
   next();
 });
+
+// transactionsSchema.pre("updateOne", function (next) {
+//   const transaction = this;
+//   console.log("before updating ...");
+//   console.log(transaction.type);
+//   if (transaction.type === "buying") {
+//     let count = 0;
+//     transaction.data.forEach((element) => {
+//       count += element.price;
+//     });
+//     transaction.totalAmount = count;
+//   }
+//   next();
+// });
 export const Transaction = model("Transaction", transactionsSchema);

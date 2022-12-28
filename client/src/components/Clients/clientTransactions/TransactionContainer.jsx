@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import "./ClientTransactions.css";
+import "./TransactionContainer.css";
 import Transaction from "./Transaction";
-export default function ClientTransactions({ client, transactions }) {
+export default function TransactionContainer({ client, transactions }) {
   const [totalAmount, setTotalAmount] = useState(0);
   const clientTransactions = transactions.filter(
     (transaction) => transaction.owner === client._id
   );
+  console.log(client._id);
   const getTotalAmount = () => {
     let count = 0;
     clientTransactions.forEach((transaction) => {

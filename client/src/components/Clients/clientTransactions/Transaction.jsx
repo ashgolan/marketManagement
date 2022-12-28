@@ -2,28 +2,19 @@ import React, { useState } from "react";
 import ProductsTransactions from "./ProductsTransactions";
 import "./Transaction.css";
 export default function Transaction({ client, transaction }) {
-  const [addProductsRows, setAddProductsRows] = useState(0);
+  const [changeData, setChangeData] = useState(false);
+  const [addProductsRows, setAddProductsRows] = useState(
+    transaction.data.length
+  );
   const [clientTransactionDetails, setClientTransactionDetails] = useState({
-    date: "",
-    time: "",
-    type: "",
     data: [],
     comment: "",
-    totalAmount: "",
-  });
-  const productsTransactions = transaction.data.map((tr) => {
-    return (
-      <form className="productRow">
-        <input className="product" value={tr.product}></input>
-        <input className="price" value={tr.price}></input>
-        <input type="checkbox" name="" id="" />
-      </form>
-    );
   });
 
   return (
     <div className="transaction-container">
       <div className="person-container-header">
+        {changeData && <i class="fa-regular fa-floppy-disk"></i>}
         <label htmlFor="">{`${client.firstName}  ${
           client.fatherName === "לא צויין" ? "" : client.fatherName
         }  ${client.lastName}`}</label>
@@ -31,30 +22,9 @@ export default function Transaction({ client, transaction }) {
       </div>
 
       <form className="userTransactions-form">
-        <input
-          value={transaction.date}
-          onChange={(e) =>
-            setClientTransactionDetails((prev) => {
-              return { ...prev, date: e.target.value };
-            })
-          }
-        ></input>
-        <input
-          value={transaction.time}
-          onChange={(e) =>
-            setClientTransactionDetails((prev) => {
-              return { ...prev, time: e.target.value };
-            })
-          }
-        ></input>
-        <input
-          value={transaction.type}
-          onChange={(e) =>
-            setClientTransactionDetails((prev) => {
-              return { ...prev, type: e.target.value };
-            })
-          }
-        ></input>
+        <label>{transaction.date}</label>
+        <label>{transaction.time}</label>
+        <label>{transaction.type}</label>
         <input
           value={transaction.comment}
           onChange={(e) =>
@@ -69,27 +39,24 @@ export default function Transaction({ client, transaction }) {
             borderRadius: "0.7rem",
           }}
         ></input>
-        <input
-          value={transaction.totalAmount}
-          onChange={(e) =>
-            setClientTransactionDetails((prev) => {
-              return { ...prev, totalAmount: e.target.value };
-            })
-          }
+        <label
           style={{
             backgroundColor: "orange",
             width: "17%",
             textAlign: "center",
             borderRadius: "0.7rem",
           }}
-        ></input>
+        >
+          {transaction.totalAmount}
+        </label>
       </form>
-      {productsTransactions}
       {[...new Array(addProductsRows)].map((row, index) => {
         return (
           <ProductsTransactions
+            index={index}
             transaction={transaction}
             addProductsRows={addProductsRows}
+            setChangeData={setChangeData}
           ></ProductsTransactions>
         );
       })}

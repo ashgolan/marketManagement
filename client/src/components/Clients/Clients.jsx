@@ -8,7 +8,6 @@ export default function Clients({ setClient }) {
   useEffect(() => {
     const getClients = async () => {
       const { data } = await axios.get("http://localhost:5000/");
-      console.log(data);
       setClients(data.clients);
       setTransactions(data.transaction);
     };

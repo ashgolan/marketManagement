@@ -1,22 +1,28 @@
 import React, { useState } from "react";
 import { useRef } from "react";
 import "./ProductTransactions.css";
-export default function ProductsTransactions({ addProductsRows, transaction }) {
+export default function ProductsTransactions({
+  index,
+  transaction,
+  setChangeData,
+}) {
   const [itemsInRow, setItemsInRow] = useState({
-    product: "",
-    price: "",
+    product: transaction.data[index] ? transaction.data[index].product : "",
+    price: transaction.data[index] ? transaction.data[index].price : "",
   });
   const addProductForm = useRef();
   const checkHandler = (e) => {
     const isFilled = validation();
+    setChangeData((prev) => !prev);
     if (isFilled) {
       e.target.checked
         ? localStorage.setItem(
-            `${transaction._id}-${addProductsRows + 1}`,
+            `${transaction._id}-${index + 1}`,
             JSON.stringify(itemsInRow)
           )
-        : localStorage.removeItem(`${transaction._id}-${addProductsRows + 1}`);
+        : localStorage.removeItem(`${transaction._id}-${index + 1}`);
     } else {
+      setChangeData((prev) => !prev);
       e.target.checked = false;
     }
   };
@@ -33,6 +39,7 @@ export default function ProductsTransactions({ addProductsRows, transaction }) {
 
   return (
     <form ref={addProductForm} className="productRow">
+      <label>{index + 1}</label>
       <input
         value={itemsInRow.product}
         name="product"
@@ -53,7 +60,7 @@ export default function ProductsTransactions({ addProductsRows, transaction }) {
           })
         }
       ></input>
-      <input type="checkbox" onChange={(e) => checkHandler(e)} name="" id="" />
+      <input type="checkbox" onChange={(e) => checkHandler(e)} />
     </form>
   );
 }

@@ -16,12 +16,14 @@
   box-shadow: rgba(179, 30, 30, 0.4) 0px 0px 0px 1px,
     rgba(6, 24, 44, 0.65) 0px 2px 1px -1px,
     rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  padding: 1%;
 }
 .clientProp {
   /* flex: 1 1 20%; */
   width: 12%;
   text-align: right;
   padding: 0.5rem;
+  border: none;
   font-size: 1rem;
   font-weight: bold;
   color: rgb(95, 25, 72);
@@ -29,7 +31,7 @@
 .edit_delete {
   display: flex;
   justify-content: space-between;
-  width: 10%;
+  width: 20%;
   height: 5%;
   padding: 1%;
 }
@@ -43,5 +45,12 @@
 }
 .fa-chart-line {
   color: rgb(135, 156, 14);
+  font-size: 1.2rem;
+}
+.fa-plus {
+  color: rgb(228, 91, 0);
+  font-size: 1.2rem;
+}
+.fa-floppy-disk {
   font-size: 1.2rem;
 }

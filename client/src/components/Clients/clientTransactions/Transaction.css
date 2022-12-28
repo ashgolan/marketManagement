@@ -16,3 +16,9 @@
   justify-content: space-around;
   align-items: center;
 }
+.person-container-header > i {
+  font-size: 1.5rem;
+}
+.fa-floppy-disk {
+  color: rgb(184, 12, 12);
+}

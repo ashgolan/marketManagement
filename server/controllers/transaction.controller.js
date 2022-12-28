@@ -40,24 +40,31 @@ export const findTransactionsByDate = async (req, res) => {
     res.status(404).send(e.message);
   }
 };
-// export const getSum = async (req, res) => {
-//   Transaction.aggregate(
-//     [
-//       {
-//         $group: {
-//           _id: "$_id",
-//           total: {
-//             $sum: "Object.values(data)",
-//           },
-//         },
-//       },
-//     ],
-//     function (err, result) {
-//       if (err) {
-//         res.send(err);
-//       } else {
-//         res.json(result);
-//       }
-//     }
-//   );
-// };
+export const updateTransaction = async (req, res) => {
+  try {
+    const newData = req.body.data;
+    let count = 0;
+    newData.forEach((element) => {
+      count += element.price;
+    });
+    console.log(count);
+    // const update = [
+    //   { data: newData, new: false, overwrite: true },
+    //   { totalAmount: count, new: false, overwrite: true },
+    // ];
+
+    const transaction1 = await Transaction.findOneAndUpdate(
+      { _id: req.body.id },
+      { data: newData, new: false, overwrite: true }
+    );
+    const transaction = await Transaction.findOneAndUpdate(
+      { _id: req.body.id },
+      { totalAmount: count, absert: true, new: false }
+    );
+    console.log(count);
+    if (!transaction) throw Error("No data");
+    res.status(200).send(transaction);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
+};

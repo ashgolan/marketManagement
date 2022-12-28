@@ -11,7 +11,7 @@ const clientSchema = new Schema({
         throw Error("please insert a number of 9 digits minimum");
     },
   },
-  comment: { type: String },
+  comment: { type: String, default: "No comment" },
   isContractor: { type: Boolean, default: false },
 });
 
