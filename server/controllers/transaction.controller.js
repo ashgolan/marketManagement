@@ -29,6 +29,17 @@ export const findTransactionsByOwner = async (req, res) => {
     res.status(404).send(e.message);
   }
 };
+export const deleteTransaction = async (req, res) => {
+  try {
+    const transactions = await Transaction.findByIdAndDelete({
+      _id: req.body._id,
+    });
+    if (!transactions) throw Error("No data");
+    res.status(200).send(transactions);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
+};
 export const findTransactionsByDate = async (req, res) => {
   try {
     const transactions = await Transaction.find({

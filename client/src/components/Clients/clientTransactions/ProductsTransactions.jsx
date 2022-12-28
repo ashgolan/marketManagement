@@ -5,6 +5,7 @@ export default function ProductsTransactions({
   index,
   transaction,
   setChangeData,
+  setMessage,
 }) {
   const [itemsInRow, setItemsInRow] = useState({
     product: transaction.data[index] ? transaction.data[index].product : "",

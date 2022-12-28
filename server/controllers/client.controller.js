@@ -50,18 +50,22 @@ export const deleteClient = async (req, res) => {
 };
 export const updateClient = async (req, res) => {
   try {
-    const client = await Client.findById({ _id: req.body._id });
-    const newClientDetails = await Client.updateOne(
-      { _id: client._id },
-      {
-        ...client,
-        firstName: req.body.firstName,
-        fatherName: req.body.fatherName,
-        lastName: req.body.lastName,
-      }
+    const client = await Client.findByIdAndUpdate(
+      { _id: req.body._id },
+      { $set: req.body },
+      { new: true }
     );
+    // const newClientDetails = await Client.updateOne(
+    //   { _id: client._id },
+    //   {
+    //     ...client,
+    //     firstName: req.body.firstName,
+    //     fatherName: req.body.fatherName,
+    //     lastName: req.body.lastName,
+    //   }
+    // );
     if (!client) throw Error("incorrect data !!");
-    res.status(200).send(newClientDetails);
+    res.status(200).send(client);
   } catch (e) {
     res.status(404).send(e.message);
   }

@@ -1,7 +1,10 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { FetchingStatus } from "../../../utils/context";
 import "./AddClient.css";
-export default function AddClient() {
+export default function AddClient({ setMessage, message }) {
+  const [fetchingStatus, setFetchingStatus] = useContext(FetchingStatus);
+
   const [newUser, setNewUser] = useState({
     firstName: "",
     fatherName: "",
@@ -13,20 +16,33 @@ export default function AddClient() {
   const addUser = async (e) => {
     e.preventDefault();
     try {
-      console.log(newUser);
+      setFetchingStatus({ loading: true, error: false });
       const data = await axios.post("http://localhost:5000/clients", {
         ...newUser,
         fatherName: newUser.fatherName === "" ? "לא צויין" : newUser.fatherName,
       });
-      //   newUser);
-      console.log(newUser);
+      setMessage({ status: true, message: "הקליינט נקלט בהצלחה" });
+      setTimeout(() => {
+        setMessage({ status: false, message: null });
+        setFetchingStatus({ loading: false, error: false });
+      }, 1000);
     } catch (e) {
-      console.log(e.message);
+      setFetchingStatus({ loading: false, error: true });
+      setMessage({
+        status: true,
+        message: "תקלה בקריאת הנתונים",
+      });
+      setTimeout(() => {
+        setMessage({ status: false, message: null });
+        setFetchingStatus({ loading: false, error: false });
+      }, 1000);
     }
   };
   return (
     <div className="addClientPage container">
       <form onSubmit={(e) => addUser(e)} className="add-client-form">
+        {message.status && <h5 className="message">{message.message}</h5>}
+
         <div className="form-group">
           <label htmlFor="">שם קליינט</label>
           <input
@@ -100,7 +116,7 @@ export default function AddClient() {
               });
             }}
           >
-            <option selected defaultValue="בחר">
+            <option disabled selected defaultValue="בחר">
               בחר
             </option>
             <option value="כן">כן</option>

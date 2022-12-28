@@ -27,9 +27,22 @@ export default function AddTransactionHome({ client }) {
       </div>
       <div className="payment-buying">
         <img style={{ width: "100%" }} src="/img/client1.png" alt="" />
-        <label htmlFor="">
-          {client.firstName + " " + client.fatherName + " " + client.lastName}
-        </label>
+        <div
+          style={{
+            width: "50%",
+            display: "flex",
+            justifyContent: "space-around",
+          }}
+        >
+          <label htmlFor="">{client.lastName}</label>
+          <label htmlFor="">
+            {
+              (client.fatherName =
+                client.fatherName === "לא צויין" ? "" : client.fatherName)
+            }
+          </label>
+          <label htmlFor="">{client.firstName}</label>
+        </div>
       </div>
     </div>
   );

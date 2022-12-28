@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ProductsTransactions from "./ProductsTransactions";
 import "./Transaction.css";
-export default function Transaction({ client, transaction }) {
+export default function Transaction({ client, transaction, setMessage }) {
   const [changeData, setChangeData] = useState(false);
   const [addProductsRows, setAddProductsRows] = useState(
     transaction.data.length
@@ -53,6 +53,7 @@ export default function Transaction({ client, transaction }) {
       {[...new Array(addProductsRows)].map((row, index) => {
         return (
           <ProductsTransactions
+            setMessage={setMessage}
             index={index}
             transaction={transaction}
             addProductsRows={addProductsRows}

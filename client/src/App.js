@@ -13,6 +13,7 @@ import BuyingPage from "./components/Clients/clientTransactions/AddTransaction/B
 import SetupPage from "./components/Setup_Components/SetupPage";
 import { FetchingStatus } from "./utils/context";
 function App() {
+  const [message, setMessage] = useState({ status: false, message: null });
   const [clients, setClients] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [client, setClient] = useState(null);
@@ -50,6 +51,8 @@ function App() {
                 setTransactions={setTransactions}
                 setClients={setClients}
                 clients={clients}
+                setMessage={setMessage}
+                message={message}
               />
             }
           ></Route>
@@ -59,17 +62,28 @@ function App() {
               <TransactionContainer
                 client={client}
                 transactions={transactions}
+                message={message}
+                setMessage={setMessage}
               />
             }
           ></Route>
-          <Route path="/AddClient" element={<AddClient />}></Route>
+          <Route
+            path="/AddClient"
+            element={<AddClient message={message} setMessage={setMessage} />}
+          ></Route>
           <Route
             path="/AddTransactionHome"
             element={<AddTransactionHome client={client} />}
           ></Route>
           <Route
             path="/PaymentPage"
-            element={<PaymentPage client={client} />}
+            element={
+              <PaymentPage
+                message={message}
+                setMessage={setMessage}
+                client={client}
+              />
+            }
           ></Route>
           <Route
             path="/BuyingPage"

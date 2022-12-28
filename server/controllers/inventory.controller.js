@@ -18,12 +18,12 @@ export const getProducts = async (req, res) => {
     res.status(404).send(e.message);
   }
 };
-// ????
 export const updateProduct = async (req, res) => {
   try {
     const product = await Inventory.findByIdAndUpdate(
       { _id: req.body._id },
-      { $set: req.body }
+      { $set: req.body },
+      { new: true }
     );
     if (!product) throw Error("bad requist data !!");
     res.status(200).send(product);

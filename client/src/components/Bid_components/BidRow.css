@@ -1,0 +1,35 @@
+.row {
+  max-width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin: 0.5rem 0;
+}
+.input_box,
+.imgOfItem {
+  min-width: 7rem;
+  max-width: 7rem;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  border: 1px rgb(202, 196, 196) dotted;
+  text-align: right;
+}
+.row_number {
+  border: 1px rgb(202, 196, 196) dotted;
+  width: 2.5rem;
+  text-align: center;
+  color: brown;
+}
+.total {
+  text-align: center;
+}
+
+@media screen and (min-width: 375px) and (max-width: 500px) {
+  .input_box {
+    width: 1.7rem;
+  }
+}
+@media screen and (min-width: 501px) and (max-width: 915px) {
+  .input_box {
+    width: 3rem;
+  }
+}

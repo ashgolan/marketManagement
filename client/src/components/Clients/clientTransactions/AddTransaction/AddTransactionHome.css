@@ -17,3 +17,10 @@
 .payment-buying > button {
   margin: 1%;
 }
+.new-transaction-btn {
+  border: none;
+  background-color: gold;
+  border-radius: 1rem;
+  width: 100%;
+  padding: 5%;
+}

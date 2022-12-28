@@ -2,9 +2,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Client from "./Client/Client";
 import "./Clients.css";
-export default function Clients({ setClient }) {
+export default function Clients({ setClient, setMessage, message }) {
   const [clients, setClients] = useState([]);
   const [transactions, setTransactions] = useState([]);
+  const [afterSave, setAfterSave] = useState(false);
+  console.log("log");
   useEffect(() => {
     const getClients = async () => {
       const { data } = await axios.get("http://localhost:5000/");
@@ -12,11 +14,10 @@ export default function Clients({ setClient }) {
       setTransactions(data.transaction);
     };
     getClients();
-  }, []);
+  }, [afterSave]);
 
   const sortClients = (e) => {
     e.preventDefault();
-
     const id = e.target.id;
     let sortedArr = [];
     sortedArr = clients.sort((a, b) => {
@@ -45,7 +46,6 @@ export default function Clients({ setClient }) {
           <label
             id="firstName"
             onClick={(e) => {
-              console.log(e);
               sortClients(e);
             }}
           >
@@ -99,6 +99,7 @@ export default function Clients({ setClient }) {
           </label>
         </div>
       </form>
+      {message.status && <h5 className="message">{message.message}</h5>}
       {clients.map((client, index) => {
         const clientTransactions = [];
         transactions.forEach((transaction) => {
@@ -107,14 +108,17 @@ export default function Clients({ setClient }) {
           }
         });
         return (
-          clientTransactions.length > 0 && (
-            <Client
-              key={`client${index}`}
-              client={client}
-              clientTransactios={clientTransactions}
-              setClient={setClient}
-            ></Client>
-          )
+          <Client
+            key={`client${index}`}
+            client={client}
+            clientTransactios={clientTransactions}
+            setClient={setClient}
+            setMessage={setMessage}
+            message={message}
+            setClients={setClients}
+            setAfterSave={setAfterSave}
+          ></Client>
+          // )
         );
       })}
     </div>
