@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0.5% auto;
+  margin: 0.2% auto;
 }
 .form-container {
   display: flex;
@@ -15,13 +15,9 @@
   background-color: rgb(48, 45, 45);
   color: whitesmoke;
   border-radius: 20px 0 20px 0;
-  /* box-shadow: rgba(179, 30, 30, 0.4) 0px 0px 0px 1px,
-    rgba(6, 24, 44, 0.65) 0px 2px 1px -1px,
-    rgba(255, 255, 255, 0.08) 0px 1px 0px inset; */
   padding: 1%;
 }
 .clientProp {
-  /* flex: 1 1 20%; */
   width: 12%;
   text-align: right;
   padding: 0.5rem;
@@ -29,36 +25,57 @@
   font-size: 1rem;
   background-color: rgb(48, 45, 45);
   color: whitesmoke;
-  /* font-weight: bold; */
-  /* color: rgb(95, 25, 72); */
 }
-.edit_delete {
+.client_actions {
   display: flex;
   justify-content: space-between;
-  width: 20%;
-  height: 5%;
-  padding: 1%;
+  align-items: center;
+  width: 50%;
+  padding: 0.3%;
+  margin: auto;
+  height: 10%;
+}
+.save-actions {
+  width: 50%;
+  /* flex: 1 1 50%; */
+  /* height: 10%; */
+  justify-content: space-between;
+}
+.confirm,
+.cancel {
+  background-color: brown;
+  border: none;
+  border-radius: 1rem;
+  color: white;
+  padding: 1% 10%;
+}
+.cancel {
+  background-color: rgb(42, 165, 79);
+}
+.actions {
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+}
+.actions > i {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.actions > i:hover {
+  color: rgb(163, 140, 7);
 }
 .fa-pen-to-square {
   color: rgb(8, 50, 75);
-  font-size: 1.2rem;
 }
 .fa-user-xmark {
   color: rgb(156, 14, 14);
-  font-size: 1.2rem;
 }
 .fa-chart-line {
   color: rgb(135, 156, 14);
-  font-size: 1.2rem;
 }
 .fa-receipt {
   color: rgb(27, 107, 199);
-  font-size: 1.2rem;
 }
-.fa-plus {
+.fa-envelope {
   color: rgb(228, 91, 0);
-  font-size: 1.2rem;
-}
-.fa-floppy-disk {
-  font-size: 1.2rem;
 }

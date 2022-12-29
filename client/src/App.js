@@ -7,11 +7,10 @@ import NavBar from "./components/NavBar/NavBar";
 import { Routes, Route } from "react-router-dom";
 import TransactionContainer from "./components/Clients/clientTransactions/TransactionContainer";
 import AddClient from "./components/Clients/Client/AddClient";
-import AddTransactionHome from "./components/Clients/clientTransactions/AddTransaction/AddTransactionHome";
-import PaymentPage from "./components/Clients/clientTransactions/AddTransaction/PaymentPage";
-import BuyingPage from "./components/Clients/clientTransactions/AddTransaction/BuyingPage";
+import AddTransactionHome from "./components/Clients/clientTransactions/AddTransaction/Payment";
 import SetupPage from "./components/Setup_Components/SetupPage";
 import { FetchingStatus } from "./utils/context";
+import BidPage from "./components/Bid_components/BidPage";
 function App() {
   const [message, setMessage] = useState({ status: false, message: null });
   const [clients, setClients] = useState([]);
@@ -73,25 +72,27 @@ function App() {
           ></Route>
           <Route
             path="/AddTransactionHome"
-            element={<AddTransactionHome client={client} />}
-          ></Route>
-          <Route
-            path="/PaymentPage"
             element={
-              <PaymentPage
-                message={message}
+              <AddTransactionHome
                 setMessage={setMessage}
+                message={message}
                 client={client}
               />
             }
           ></Route>
           <Route
-            path="/BuyingPage"
-            element={<BuyingPage client={client} />}
-          ></Route>
-          <Route
             path="/SetupPage"
             element={<SetupPage client={client} />}
+          ></Route>
+          <Route
+            path="/BidPage"
+            element={
+              <BidPage
+                message={message}
+                setMessage={setMessage}
+                client={client}
+              />
+            }
           ></Route>
         </Routes>
       </FetchingStatus.Provider>

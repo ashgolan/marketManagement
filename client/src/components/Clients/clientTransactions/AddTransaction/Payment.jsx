@@ -2,9 +2,12 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FetchingStatus } from "../../../../utils/context";
-
-export default function PaymentPage({ message, setMessage, client }) {
+import "./Payment.css";
+export default function AddTransactionHome({ client, setMessage, message }) {
   const navigate = useNavigate();
+  const gotoPage = (page) => {
+    navigate(`/${page}`);
+  };
   const [fetchingStatus, setFetchingStatus] = useContext(FetchingStatus);
 
   const [newPayment, setNewPayment] = useState({
@@ -37,13 +40,19 @@ export default function PaymentPage({ message, setMessage, client }) {
     }
   };
   return (
-    <div className="addClientPage container">
+    <div className="add-transaction-container">
       <form onSubmit={(e) => addPayment(e)} className="add-client-form">
         {message.status && <h5 className="message">{message.message}</h5>}
-
-        <label style={{ textAlign: "center", fontWeight: "bold" }} htmlFor="">
-          {client.firstName + " " + client.fatherName + " " + client.lastName}
-        </label>
+        <div className="fullName-payment">
+          <label htmlFor="">{client.lastName}</label>
+          <label htmlFor="">
+            {
+              (client.fatherName =
+                client.fatherName === "לא צויין" ? "" : client.fatherName)
+            }
+          </label>
+          <label htmlFor="">{client.firstName}</label>
+        </div>
         <div className="form-group">
           <label htmlFor="">סכום</label>
           <input
@@ -77,13 +86,33 @@ export default function PaymentPage({ message, setMessage, client }) {
             border: "none",
             backgroundColor: "gold",
             borderRadius: "1rem",
-            width: "100%",
-            padding: "5%",
+            width: "70%",
+            padding: "1% 5%",
+            margin: "auto",
           }}
         >
-          אישור
+          אישור תשלום
         </button>
       </form>
+      <div className="payment-buying">
+        <img style={{ width: "100%" }} src="/img/client1.png" alt="" />
+        <div
+          style={{
+            width: "50%",
+            display: "flex",
+            justifyContent: "space-around",
+          }}
+        >
+          <label htmlFor="">{client.lastName}</label>
+          <label htmlFor="">
+            {
+              (client.fatherName =
+                client.fatherName === "לא צויין" ? "" : client.fatherName)
+            }
+          </label>
+          <label htmlFor="">{client.firstName}</label>
+        </div>
+      </div>
     </div>
   );
 }

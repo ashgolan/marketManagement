@@ -1,35 +1,34 @@
 import React, { useState } from "react";
 import { useRef } from "react";
 import "./BidRow.css";
-export default function BidRow({ numOfRow, allData }) {
+export default function BidRow({ numOfRow, inventoryData }) {
   const bidForm = useRef();
   const selectedItem = useRef();
   const [itemInRow, setItemInRow] = useState({
-    number: "",
-    desc: "",
+    productName: "",
+    serial: "",
     category: "",
-    weight: "",
-    length: "",
     quantity: "",
-    totalWeight: "",
-    image: "",
+    price: "",
+    totalAmount: "",
+    comment: "",
   });
-  const allItems = allData.inventory.map((item, index) => {
-    return <option key={`product${index}`}>{item.desc}</option>;
+  const allItems = inventoryData.map((item, index) => {
+    return <option key={`product${index}`}>{item.productName}</option>;
   });
   const setBySelectedValue = (e) => {
-    const foundItem = allData.inventory.find((item) => {
-      return item.desc === e.target.value;
+    const foundItem = inventoryData.find((item) => {
+      return item.productName === e.target.value;
     });
     setItemInRow((prev) => {
       return {
         ...prev,
-        number: foundItem.number,
-        desc: foundItem.desc,
+        productName: foundItem.productName,
+        serial: foundItem.serial,
         category: foundItem.category,
-        weight: foundItem.weight,
-        length: foundItem.length,
-        image: foundItem.image,
+        price: foundItem.price,
+        totalAmount: foundItem.totalAmount,
+        comment: foundItem.comment,
       };
     });
   };
@@ -61,31 +60,32 @@ export default function BidRow({ numOfRow, allData }) {
         type="checkbox"
         onClick={(e) => checkHandler(e)}
       />
-
       <input
-        name="totalWeight"
+        name="comment"
+        placeholder={`הערה`}
+        className="input_box total comment-box"
+        defaultValue={itemInRow.comment}
+        
+      ></input>
+      <input
+        name="totalAmount"
+        type="number"
         disabled
         placeholder={`סה"כ`}
         className="input_box total"
-        defaultValue={itemInRow.totalWeight}
-      ></input>
-      <input
-        name="weight"
-        className="input_box"
-        placeholder="משקל"
-        defaultValue={itemInRow.weight}
+        defaultValue={itemInRow.totalAmount}
       ></input>
       <input
         name="quantity"
         className="input_box"
         placeholder="כמות"
-        value={itemInRow.quantity}
+        defaultValue={itemInRow.quantity}
         onChange={(e) =>
           setItemInRow((prev) => {
             return {
               ...prev,
-              totalWeight: prev.weight
-                ? (prev.weight * e.target.value).toFixed(2)
+              totalAmount: prev.price
+                ? +(prev.price * e.target.value).toFixed(2)
                 : e.target.value,
               quantity: e.target.value,
             };
@@ -93,26 +93,23 @@ export default function BidRow({ numOfRow, allData }) {
         }
       ></input>
       <input
-        name="length"
+        name="price"
         className="input_box"
-        placeholder="אורך"
-        defaultValue={itemInRow.length}
+        placeholder="מחיר"
+        defaultValue={itemInRow.price}
       ></input>
-
-      <img
-        className="imgOfItem"
-        style={{
-          padding: itemInRow.image !== "" && "0.5% 2.5%",
-        }}
-        alt=""
-        src={`.${itemInRow.image}`}
-      ></img>
-
       <input
         name="category"
         className="input_box"
-        placeholder="סוג"
+        placeholder="קטגוריה"
         defaultValue={itemInRow.category}
+      ></input>
+
+      <input
+        name="serial"
+        className="input_box"
+        placeholder="מקט"
+        defaultValue={itemInRow.serial}
       ></input>
       <select
         name=""
@@ -121,14 +118,11 @@ export default function BidRow({ numOfRow, allData }) {
         defaultValue={itemInRow.desc}
         onChange={(e) => setBySelectedValue(e)}
       >
+        <option defaultValue="בחר מוצר" selected disabled>
+          בחר מוצר
+        </option>
         {allItems}
       </select>
-      <input
-        name="number"
-        className="input_box"
-        placeholder="מספר"
-        defaultValue={itemInRow.number}
-      ></input>
       <input disabled className="row_number" value={numOfRow + 1} />
     </form>
   );

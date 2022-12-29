@@ -17,13 +17,16 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
-
+.header_container > img {
+  width: 5%;
+}
 .name,
 .date,
 .save {
   color: rgb(102, 28, 28);
-  padding: 1% 2%;
+  padding: 1%;
   margin: 1%;
   color: rgb(51, 46, 46);
   text-align: right;
@@ -60,6 +63,33 @@
   .save {
     width: 50%;
   }
+}
+.save-pdf-data {
+  background-color: brown;
+  width: 17%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1%;
+  margin: 1%;
+  border-radius: 2rem;
+}
+.save-pdf-data > label {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  color: whitesmoke;
+  text-align: center;
+}
+.pdf-btn {
+  width: 8%;
+}
+.save-pdf-data > i {
+  font-size: 1.5rem;
+  color: gold;
+  border-right: 1px white solid;
+  padding: 1% 3%;
+  cursor: pointer;
 }
 @media screen and (min-width: 501px) and (max-width: 915px) {
   .header_container {

@@ -6,36 +6,54 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { FetchingStatus } from "../../utils/context";
-
-export default function BidPage({ dispatch, allData }) {
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+export default function BidPage({ client, message, setMessage }) {
   // eslint-disable-next-line
   const [fetchingStatus, setFetchingStatus] = useContext(FetchingStatus);
   const navigate = useNavigate();
   const [numOfRows, setNumOfRows] = useState(5);
-  const [message, setMessage] = useState(false);
-
+  const [inventoryData, setInventoryData] = useState([]);
   const [bid, setBid] = useState({
-    clientName: "",
-    date: "",
-    color: "",
+    clientId: client._id,
+    // date: new Date().toLocaleDateString(),
+    // time: new Date().toLocaleTimeString(),
     isApproved: false,
     data: [],
+    comment: "",
   });
   useEffect(() => {
     localStorage.clear();
+    const getInventoryData = async () => {
+      try {
+        const { data } = await axios.get("http://localhost:5000/inventory/");
+        console.log(data);
+        setInventoryData(() => data);
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
+    getInventoryData();
   }, []);
-  const uploadData = async (bidObj) => {
+  const uploadData = async (bidObj, id) => {
     try {
       setFetchingStatus({ loading: true, error: false });
-
-      const { data } = await axios.post(
-        "https://6384bd7c3fa7acb14fff0d13.mockapi.io/bids",
-        bidObj
-      );
-      dispatch({
-        type: ACTION_TYPES.ADD,
-        payload: { type: "bids", data: data },
-      });
+      console.log(id);
+      if (id === "newBid") {
+        const { data } = await axios.post(
+          "http://localhost:5000/bids/",
+          bidObj
+        );
+      } else {
+        const { data } = await axios.post(
+          "http://localhost:5000/transactions/",
+          {
+            owner: client._id,
+            type: "buying",
+            data: bidObj.data,
+          }
+        );
+      }
       setFetchingStatus({ loading: false, error: false });
     } catch (e) {
       setFetchingStatus({ loading: false, error: true });
@@ -43,6 +61,7 @@ export default function BidPage({ dispatch, allData }) {
   };
 
   const saveBidHandler = (e) => {
+    console.log(e);
     e.preventDefault();
     const allBidRows = [];
     const ls = Object.values(localStorage);
@@ -52,37 +71,92 @@ export default function BidPage({ dispatch, allData }) {
     setBid((prev) => {
       return { ...prev, data: allBidRows };
     });
-    uploadData({
-      clientName: bid.clientName,
-      date: bid.date,
-      color: bid.color,
-      isApproved: bid.isApproved,
-      data: allBidRows,
-    });
+    uploadData(
+      {
+        clientId: bid.clientId,
+        // date: bid.date,
+        isApproved: bid.isApproved,
+        data: allBidRows,
+        comment: bid.comment,
+      },
+      e.target.id
+    );
     localStorage.clear();
     setMessage(true);
     setTimeout(() => {
-      navigate("/order");
+      navigate("/clients");
     }, 1000);
   };
 
+  const exportToPdf = () => {
+    const input = document.getElementById("pdfOrder");
+    html2canvas(input, {
+      scale: 2,
+      logging: true,
+      letterRendering: 1,
+      useCORS: true,
+    }).then((canvas) => {
+      const imgWidth = 208;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const widthRatio = imgWidth / canvas.width;
+      const heightRatio = imgHeight / canvas.height;
+      const ratio = widthRatio > heightRatio ? heightRatio : widthRatio;
+      const canvasWidth = canvas.width * ratio;
+      const marginX = (imgWidth - canvasWidth) / 2;
+      const imgData = canvas.toDataURL("img/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      pdf.addImage(imgData, "PNG", marginX, 0, imgWidth, imgHeight);
+      pdf.save("order.pdf");
+    });
+  };
   return (
-    <div className="bid_container">
-      {message && <h5 className="message">ההצעה נשמרה בהצלחה</h5>}
-      <form onSubmit={saveBidHandler} className="header_container">
-        <input type="submit" className="save" value="שמירה" />
+    <div className="bid_container" id="pdfOrder">
+      {message.status && <h5 className="message">{message.message}</h5>}
+      <form className="header_container">
+        <img src="./img/sendMail.png" alt="" />
+        <img
+          style={{ cursor: "pointer" }}
+          onClick={exportToPdf}
+          src="./img/savePdf.png"
+          alt=""
+        />
+        {/* <div className="pdf-btn save-pdf-data">
+          <i class="fa-solid fa-file-pdf"></i>
+          <input value="PDF" />
+        </div> */}
+
+        <div className="save-pdf-data">
+          <i class="fa-solid fa-square-plus"></i>
+          <label
+            style={{ cursor: "pointer" }}
+            id="newBuying"
+            onClick={(e) => saveBidHandler(e)}
+          >
+            שמירה כעסקה חדשה
+          </label>
+        </div>
+        <div className="save-pdf-data">
+          <i class="fa-solid fa-receipt"></i>
+          <label
+            style={{ cursor: "pointer" }}
+            id="newBid"
+            onClick={(e) => saveBidHandler(e)}
+          >
+            שמירה כהצעת מחיר
+          </label>
+        </div>
         <input
-          className="name"
-          placeholder="צבע"
-          value={bid.color}
-          required
+          className="date"
+          type="text"
+          placeholder="הערה"
+          value={bid.comment}
           onChange={(e) => {
             setBid((prev) => {
-              return { ...prev, color: e.target.value };
+              return { ...prev, comment: e.target.value };
             });
           }}
         />
-        <input
+        {/* <input
           required
           className="date"
           type="date"
@@ -93,31 +167,36 @@ export default function BidPage({ dispatch, allData }) {
               return { ...prev, date: e.target.value };
             });
           }}
-        />
-        <input
-          className="name"
-          required
-          type="text"
-          placeholder="שם"
-          value={bid.clientName}
-          onChange={(e) => {
-            setBid((prev) => {
-              return { ...prev, clientName: e.target.value };
-            });
+        /> */}
+        <div
+          style={{
+            width: "15%",
+            display: "flex",
+            justifyContent: "space-around",
+            fontWeight: "bold",
           }}
-        />
+        >
+          <label htmlFor="">{client.lastName}</label>
+          <label htmlFor="">
+            {
+              (client.fatherName =
+                client.fatherName === "לא צויין" ? "" : client.fatherName)
+            }
+          </label>
+          <label htmlFor="">{client.firstName}</label>
+        </div>
       </form>
       {[...new Array(numOfRows)].map((row, index) => {
         return (
           <BidRow
             key={`row${index}`}
+            inventoryData={inventoryData}
             numOfRow={index}
-            allData={allData}
           ></BidRow>
         );
       })}
       <img
-        src="/addItem.png"
+        src="/img/addItem.png"
         alt=""
         className="addWRow_btn"
         onClick={() => {

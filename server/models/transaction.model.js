@@ -27,7 +27,7 @@ transactionsSchema.pre("save", function (next) {
   if (transaction.type === "buying") {
     let count = 0;
     transaction.data.forEach((element) => {
-      count += element.price;
+      count += element.totalAmount;
     });
     transaction.totalAmount = count;
   }

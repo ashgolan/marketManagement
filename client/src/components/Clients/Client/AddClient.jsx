@@ -1,8 +1,14 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
+import { useEffect } from "react";
+import { useRef } from "react";
 import { FetchingStatus } from "../../../utils/context";
 import "./AddClient.css";
 export default function AddClient({ setMessage, message }) {
+  const firstNameFocus = useRef();
+  useEffect(() => {
+    firstNameFocus.current.focus();
+  }, []);
   const [fetchingStatus, setFetchingStatus] = useContext(FetchingStatus);
 
   const [newUser, setNewUser] = useState({
@@ -20,6 +26,7 @@ export default function AddClient({ setMessage, message }) {
       const data = await axios.post("http://localhost:5000/clients", {
         ...newUser,
         fatherName: newUser.fatherName === "" ? "לא צויין" : newUser.fatherName,
+        isContractor: newUser.isContractor === "כן" ? true : false,
       });
       setMessage({ status: true, message: "הקליינט נקלט בהצלחה" });
       setTimeout(() => {
@@ -46,12 +53,14 @@ export default function AddClient({ setMessage, message }) {
         <div className="form-group">
           <label htmlFor="">שם קליינט</label>
           <input
+            required
             value={newUser.firstName}
             onChange={(e) =>
               setNewUser((prev) => {
                 return { ...newUser, firstName: e.target.value };
               })
             }
+            ref={firstNameFocus}
           />
         </div>
         <div className="form-group">
@@ -71,6 +80,7 @@ export default function AddClient({ setMessage, message }) {
         <div className="form-group">
           <label htmlFor="">משפחה</label>
           <input
+            required
             value={newUser.lastName}
             onChange={(e) =>
               setNewUser((prev) => {
@@ -82,6 +92,7 @@ export default function AddClient({ setMessage, message }) {
         <div className="form-group">
           <label htmlFor="">טלפון</label>
           <input
+            required
             value={newUser.phone}
             onChange={(e) =>
               setNewUser((prev) => {
@@ -106,7 +117,8 @@ export default function AddClient({ setMessage, message }) {
           <select
             name=""
             id=""
-            value={newUser.isContractor === true ? "כן" : "לא"}
+            // value={newUser.isContractor === true ? "כן" : "לא"}
+            defaultValue="בחר"
             onChange={(e) => {
               setNewUser((prev) => {
                 return {
@@ -116,7 +128,7 @@ export default function AddClient({ setMessage, message }) {
               });
             }}
           >
-            <option disabled selected defaultValue="בחר">
+            <option disabled defaultValue="בחר">
               בחר
             </option>
             <option value="כן">כן</option>

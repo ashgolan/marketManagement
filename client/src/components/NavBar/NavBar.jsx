@@ -3,24 +3,33 @@ import { Link } from "react-router-dom";
 import "./NavBar.css";
 export default function NavBar() {
   return (
-    <ul>
-      <Link to="/">
-        <img className="nav-image" src="../img/bid.png"></img>
-      </Link>
-      <Link to="/Clients">
-        <img className="nav-image" src="../img/clients2.png"></img>
-      </Link>
-      <Link to="/AddClient">
-        <img className="nav-image" src="../img/addClient3.png"></img>
-      </Link>
-      <Link to="/SetupPage">
-        <img className="nav-image" src="../img/inventory.png"></img>
-      </Link>
-      <Link to="/">
-        <img className="nav-image" src="../img/747668.png"></img>
-      </Link>
-      <i className="fa-solid fa-lock"></i>
-      {/* <i class="fa-solid fa-unlock"></i> */}
-    </ul>
+    <div className="nav-container">
+      <div className="nav-logo">
+        <Link to="/">
+          <img style={{ width: "30%" }} src="/img/logo2.png" alt="" />
+        </Link>
+      </div>
+      <div className="nav-photos">
+        <Link to="/">
+          <img src="/img/bid11.png" alt="" />
+        </Link>
+        <Link to="/Clients">
+          <img src="/img/clients11.png" alt="" />
+        </Link>
+        <Link to="/AddClient">
+          <img src="/img/addClient11.png" alt="" />
+        </Link>
+        <Link to="/SetupPage">
+          <img src="/img/inventory11.png" alt="" />
+        </Link>
+        <Link to="/">
+          <img src="/img/analysis11.png" alt="" />
+        </Link>
+      </div>
+      <div className="nav-log">
+        <i className="fa-solid fa-lock"></i>
+        {/* <i class="fa-solid fa-unlock"></i> */}
+      </div>
+    </div>
   );
 }

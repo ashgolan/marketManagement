@@ -7,10 +7,9 @@ import "./Client.css";
 
 export default function Client({
   client,
-  clientTransactios: clientTransactions,
+  clientTransactions,
   setClient,
   setMessage,
-  setClients,
   setAfterSave,
 }) {
   const [fetchingStatus, setFetchingStatus] = useContext(FetchingStatus);
@@ -42,6 +41,10 @@ export default function Client({
     setClient(client);
     navigate("/TransactionContainer");
   };
+  const openBidtPage = () => {
+    setClient(client);
+    navigate("/BidPage");
+  };
   const openTransactionHome = () => {
     setClient(client);
     navigate("/AddTransactionHome");
@@ -62,15 +65,16 @@ export default function Client({
             lastName: data.lastName,
           };
         });
+        setMessage({ status: true, message: "הפרטים עודכנו בהצלחה" });
       } else {
         const { data } = await axios.delete("http://localhost:5000/clients/", {
           data: { _id: client._id },
         });
         setAfterSave(true);
         setClient(() => null);
+        setMessage({ status: true, message: "תיק של הקליינט הוסר בהצלחה" });
       }
       // delete client and render
-      setMessage({ status: true, message: "הפרטים עודכנו בהצלחה" });
       setTimeout(() => {
         setMessage({ status: false, message: null });
         setFetchingStatus({ loading: false, error: false });
@@ -124,35 +128,56 @@ export default function Client({
             clientTransactions[clientTransactions.length - 1].date}
         </label>
       </form>
-      <div className="edit_delete">
-        <i onClick={openTransactionHome} className="fa-solid fa-plus"></i>
-        <i className="fa-solid fa-receipt"></i>
-        <i onClick={openClientPage} className="fa-solid fa-chart-line"></i>
-        {isChanged && (
+      <div className="client_actions">
+        <div className="save-actions">
+          {isChanged && (
+            <button
+              className="confirm"
+              onClick={() => {
+                setIsDisabled(true);
+                setIsChanged(false);
+                saveDeleteOrUpdate();
+              }}
+            >
+              אישור
+            </button>
+          )}
+          {isChanged && (
+            <button
+              className="cancel"
+              onClick={() => {
+                setIsDisabled(true);
+                setIsChanged(false);
+              }}
+            >
+              ביטול
+            </button>
+          )}
+        </div>
+        <div className="actions">
+          <i
+            onClick={openTransactionHome}
+            className="fa-regular fa-credit-card"
+          ></i>
+          <i className="fa-solid fa-envelope"></i>
+          <i onClick={openBidtPage} className="fa-solid fa-receipt"></i>
+          <i onClick={openClientPage} className="fa-solid fa-chart-line"></i>
           <i
             onClick={() => {
-              setIsDisabled(true);
-              setIsChanged(false);
-              saveDeleteOrUpdate();
+              setIsDisabled(false);
+              setIsChanged(true);
+              setSave({ delete: false, update: true });
             }}
-            class="fa-regular fa-floppy-disk"
+            className="fa-regular fa-pen-to-square"
           ></i>
-        )}
-        <i
-          onClick={() => {
-            setIsDisabled(false);
-            setIsChanged(true);
-            setSave({ delete: false, update: true });
-          }}
-          className="fa-regular fa-pen-to-square"
-        ></i>
-        <i
-          onClick={() => {
-            setIsChanged(true);
-            setSave({ delete: true, update: false });
-          }}
-          className="fa-solid fa-user-xmark"
-        ></i>
+          <i
+            onClick={() => {
+              setIsChanged(true);
+              setSave({ delete: true, update: false });
+            }}
+            className="fa-solid fa-user-xmark"
+          ></i>
+        </div>
       </div>
     </div>
   );
