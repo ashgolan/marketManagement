@@ -50,6 +50,52 @@ export default function Transaction({ client, transaction, setMessage }) {
           {transaction.totalAmount}
         </label>
       </form>
+      <form className="productRow">
+        <label style={{ visibility: "hidden" }}>1</label>
+        <input
+          style={{ backgroundColor: "rgb(238, 238, 133)" }}
+          defaultValue="שם המוצר"
+          name="productName"
+          className="product"
+        ></input>
+        <input
+          style={{ backgroundColor: "rgb(238, 238, 133)" }}
+          defaultValue="מקט"
+          name="serial"
+          className="price"
+        ></input>
+        <input
+          style={{ backgroundColor: "rgb(238, 238, 133)" }}
+          defaultValue="קטגוריה"
+          name="category"
+          className="price"
+        ></input>
+        <input
+          style={{ backgroundColor: "rgb(238, 238, 133)" }}
+          defaultValue="כמות"
+          name="quantity"
+          className="price"
+        ></input>
+        <input
+          style={{ backgroundColor: "rgb(238, 238, 133)" }}
+          defaultValue="מחיר"
+          name="price"
+          className="price"
+        ></input>
+        <input
+          style={{ backgroundColor: "rgb(238, 238, 133)" }}
+          defaultValue='סה"כ'
+          name="totalAmount"
+          className="price"
+        ></input>
+        <input
+          style={{ backgroundColor: "rgb(238, 238, 133)" }}
+          defaultValue="הערה"
+          name="comment"
+          className="comment"
+        ></input>
+        <input style={{ visibility: "hidden" }} type="checkbox" />
+      </form>
       {[...new Array(addProductsRows)].map((row, index) => {
         return (
           <ProductsTransactions

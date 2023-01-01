@@ -11,9 +11,12 @@ import AddTransactionHome from "./components/Clients/clientTransactions/AddTrans
 import SetupPage from "./components/Setup_Components/SetupPage";
 import { FetchingStatus } from "./utils/context";
 import BidPage from "./components/Bid_components/BidPage";
+import WaitingBids from "./components/Bid_components/WaitingBids";
+import ProfitMode from "./components/ProfitMode/ProfitMode";
 function App() {
   const [message, setMessage] = useState({ status: false, message: null });
   const [clients, setClients] = useState([]);
+  const [bids, SetBids] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [client, setClient] = useState(null);
   const [fetchingStatus, setFetchingStatus] = useState({
@@ -24,9 +27,14 @@ function App() {
   });
   useEffect(() => {
     const getClients = async () => {
-      const { data } = await axios.get("http://localhost:5000/");
-      setClients(data.clients);
-      setTransactions(data.transaction);
+      try {
+        const { data } = await axios.get("http://localhost:5000/");
+        setClients(data.clients);
+        SetBids(data.bids);
+        setTransactions(data.transaction);
+      } catch (e) {
+        console.log(e.message);
+      }
     };
     getClients();
   }, []);
@@ -93,6 +101,14 @@ function App() {
                 client={client}
               />
             }
+          ></Route>
+          <Route
+            path="/WaitingBids"
+            element={<WaitingBids message={message} setMessage={setMessage} />}
+          ></Route>
+          <Route
+            path="/ProfitMode"
+            element={<ProfitMode message={message} setMessage={setMessage} />}
           ></Route>
         </Routes>
       </FetchingStatus.Provider>

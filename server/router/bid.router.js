@@ -1,10 +1,15 @@
 import { Router } from "express";
-import { addBid, deleteBid, getBids } from "../controllers/bid.controller.js";
+import {
+  addBid,
+  deleteBid,
+  getBids,
+  updateBid,
+} from "../controllers/bid.controller.js";
 
 export const bidsRouter = Router();
 
 bidsRouter.post("/", addBid);
 bidsRouter.get("/", getBids);
 // bidRouter.get("/findBid", getClientById);
-// bidRouter.patch("/", updateClient);
+bidsRouter.patch("/", updateBid);
 bidsRouter.delete("/", deleteBid);

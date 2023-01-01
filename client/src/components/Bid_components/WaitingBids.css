@@ -1,0 +1,64 @@
+.bid-container {
+  margin: auto;
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.orderRow {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0;
+  width: 80%;
+  margin: auto;
+}
+.orderRow div {
+  width: 10rem;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  border: 1px rgb(202, 196, 196) dotted;
+  text-align: right;
+}
+
+.order-container {
+  /* width: 80%; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+.order-selection {
+  width: 60%;
+  padding: 1% 5%;
+  border-radius: 10px;
+  border: 1px rgb(148, 141, 37) solid;
+  font-size: 1.1rem;
+  margin: 1%;
+  color: rgb(6, 47, 122);
+  text-align: center;
+  cursor: pointer;
+}
+.titles {
+  border: 1px rgb(148, 141, 37) solid;
+  color: brown;
+  font-weight: bold;
+}
+.orderheader {
+  /* width: 70%; */
+  display: flex;
+  justify-content: center;
+  /* margin: 1%; */
+  align-items: center;
+}
+.save-delete-bid-btn {
+  width: 30%;
+  text-align: center;
+  color: whitesmoke;
+  border: none;
+  background-color: rgb(52, 146, 57);
+  padding: 0.5% 2%;
+  border-radius: 1rem;
+  margin: 1%;
+}

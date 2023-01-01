@@ -37,6 +37,7 @@
 }
 .productRow > .comment {
   width: 15%;
+  /* color : rgb(238, 238, 133) */
 }
 .transaction-container {
   width: 70%;

@@ -27,3 +27,16 @@ export const deleteBid = async (req, res) => {
     res.status(404).send(e.message);
   }
 };
+export const updateBid = async (req, res) => {
+  try {
+    const bid = await Bid.findByIdAndUpdate(
+      { _id: req.body._id },
+      { $set: req.body },
+      { new: true }
+    );
+    if (!bid) throw Error("bad inserted data !!");
+    res.status(200).send(bid);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
+};

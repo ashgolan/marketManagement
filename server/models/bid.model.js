@@ -7,6 +7,7 @@ const bidSchema = new Schema({
   date: { type: String, default: date },
   time: { type: String, default: time },
   isApproved: { type: Boolean },
+  totalAmount: { type: Number, default: 0 },
   data: { type: Array, required: true },
   comment: { type: String, default: "No comment" },
 });

@@ -10,7 +10,7 @@ export default function NavBar() {
         </Link>
       </div>
       <div className="nav-photos">
-        <Link to="/">
+        <Link to="/WaitingBids">
           <img src="/img/bid11.png" alt="" />
         </Link>
         <Link to="/Clients">
@@ -22,7 +22,7 @@ export default function NavBar() {
         <Link to="/SetupPage">
           <img src="/img/inventory11.png" alt="" />
         </Link>
-        <Link to="/">
+        <Link to="/ProfitMode">
           <img src="/img/analysis11.png" alt="" />
         </Link>
       </div>

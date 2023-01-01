@@ -11,6 +11,7 @@ import jsPDF from "jspdf";
 export default function BidPage({ client, message, setMessage }) {
   // eslint-disable-next-line
   const [fetchingStatus, setFetchingStatus] = useContext(FetchingStatus);
+  const [totalAmountOfBid, setTotalAmountOfBid] = useState(0);
   const navigate = useNavigate();
   const [numOfRows, setNumOfRows] = useState(5);
   const [inventoryData, setInventoryData] = useState([]);
@@ -40,10 +41,10 @@ export default function BidPage({ client, message, setMessage }) {
       setFetchingStatus({ loading: true, error: false });
       console.log(id);
       if (id === "newBid") {
-        const { data } = await axios.post(
-          "http://localhost:5000/bids/",
-          bidObj
-        );
+        const { data } = await axios.post("http://localhost:5000/bids/", {
+          ...bidObj,
+          totalAmount: totalAmountOfBid,
+        });
       } else {
         const { data } = await axios.post(
           "http://localhost:5000/transactions/",
@@ -145,6 +146,14 @@ export default function BidPage({ client, message, setMessage }) {
             שמירה כהצעת מחיר
           </label>
         </div>
+        <div
+          className="save-pdf-data"
+          style={{ width: "10%", backgroundColor: "rgb(170, 90, 6)" }}
+        >
+          <i class="fa-solid fa-sack-dollar"></i>{" "}
+          <label>{totalAmountOfBid}</label>
+        </div>
+
         <input
           className="date"
           type="text"
@@ -192,6 +201,7 @@ export default function BidPage({ client, message, setMessage }) {
             key={`row${index}`}
             inventoryData={inventoryData}
             numOfRow={index}
+            setTotalAmountOfBid={setTotalAmountOfBid}
           ></BidRow>
         );
       })}

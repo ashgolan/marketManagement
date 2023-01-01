@@ -12,6 +12,7 @@ const clientSchema = new Schema({
     },
   },
   comment: { type: String, default: "No comment" },
+  isActive: { type: Boolean, default: true },
   isContractor: { type: Boolean, default: false },
 });
 

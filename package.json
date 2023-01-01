@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/ashgolan/CanIPlanet#readme",
   "dependencies": {
-    "bootstrap": "^5.2.3"
+    "bootstrap": "^5.2.3",
+    "react-chartjs-2": "^5.1.0"
   }
 }

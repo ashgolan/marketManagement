@@ -101,3 +101,11 @@
     width: 70%;
   }
 }
+.totalAmountOfBid {
+  width: 8%;
+  padding: 1%;
+  border-radius: 2rem;
+  background-color: rgb(170, 132, 6);
+  color: white;
+  text-align: center;
+}

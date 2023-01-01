@@ -41,7 +41,7 @@ export default function AddClient({ setMessage, message }) {
       });
       setTimeout(() => {
         setMessage({ status: false, message: null });
-        setFetchingStatus({ loading: false, error: false });
+        setFetchingStatus({ loading: false, error: true });
       }, 1000);
     }
   };

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { useRef } from "react";
 import "./BidRow.css";
-export default function BidRow({ numOfRow, inventoryData }) {
+export default function BidRow({
+  setTotalAmountOfBid,
+  numOfRow,
+  inventoryData,
+}) {
   const bidForm = useRef();
   const selectedItem = useRef();
   const [itemInRow, setItemInRow] = useState({
@@ -35,9 +39,17 @@ export default function BidRow({ numOfRow, inventoryData }) {
   const checkHandler = (e) => {
     const isFilled = validation();
     if (isFilled) {
-      e.target.checked
-        ? localStorage.setItem(`row${numOfRow + 1}`, JSON.stringify(itemInRow))
-        : localStorage.removeItem(`row${numOfRow + 1}`);
+      // e.target.checked
+      //   ? localStorage.setItem(`row${numOfRow + 1}`, JSON.stringify(itemInRow))
+      //   : localStorage.removeItem(`row${numOfRow + 1}`);
+      if (e.target.checked) {
+        console.log(itemInRow.totalAmount);
+        localStorage.setItem(`row${numOfRow + 1}`, JSON.stringify(itemInRow));
+        setTotalAmountOfBid((prev) => prev + itemInRow.totalAmount);
+      } else {
+        localStorage.removeItem(`row${numOfRow + 1}`);
+        setTotalAmountOfBid((prev) => prev - itemInRow.totalAmount);
+      }
     } else {
       e.target.checked = false;
     }
@@ -65,7 +77,6 @@ export default function BidRow({ numOfRow, inventoryData }) {
         placeholder={`הערה`}
         className="input_box total comment-box"
         defaultValue={itemInRow.comment}
-        
       ></input>
       <input
         name="totalAmount"

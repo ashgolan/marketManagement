@@ -12,7 +12,7 @@ export default function AddTransactionHome({ client, setMessage, message }) {
 
   const [newPayment, setNewPayment] = useState({
     owner: "",
-    totalAmount: 0,
+    totalAmount: 1,
     comment: "",
     type: "payment",
   });
@@ -33,10 +33,11 @@ export default function AddTransactionHome({ client, setMessage, message }) {
       navigate("/clients");
     } catch (e) {
       setFetchingStatus({ loading: false, error: true });
-      setMessage({
-        status: true,
-        message: "תקלה בקריאת הנתונים",
-      });
+      setMessage({ status: true, message: "תקלה בקריאת הנתונים" });
+      setTimeout(() => {
+        setMessage({ status: false, message: null });
+        setFetchingStatus({ loading: false, error: true });
+      }, 1000);
     }
   };
   return (
@@ -58,7 +59,7 @@ export default function AddTransactionHome({ client, setMessage, message }) {
           <input
             required
             type="number"
-            min={0}
+            min={1}
             value={newPayment.totalAmount}
             onChange={(e) =>
               setNewPayment((prev) => {
@@ -91,7 +92,7 @@ export default function AddTransactionHome({ client, setMessage, message }) {
             margin: "auto",
           }}
         >
-          אישור תשלום
+          אישור תשלום/זיכוי
         </button>
       </form>
       <div className="payment-buying">
