@@ -94,7 +94,7 @@ export default function Transaction({ client, transaction, setMessage }) {
           name="comment"
           className="comment"
         ></input>
-        <input style={{ visibility: "hidden" }} type="checkbox" />
+        {/* <input style={{ visibility: "hidden" }} type="checkbox" /> */}
       </form>
       {[...new Array(addProductsRows)].map((row, index) => {
         return (
@@ -107,7 +107,7 @@ export default function Transaction({ client, transaction, setMessage }) {
           ></ProductsTransactions>
         );
       })}
-      <div className="edit-delete-transaction">
+      {/* <div className="edit-delete-transaction">
         <i className="fa-regular fa-pen-to-square"></i>
 
         <img
@@ -116,7 +116,7 @@ export default function Transaction({ client, transaction, setMessage }) {
           src="/img/addItem.png"
         ></img>
         <i class="fa-solid fa-trash-can"></i>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -45,3 +45,13 @@
 .updownSort .fa-sort-up {
   color: rgb(255, 255, 255);
 }
+.range-active-notActive {
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: beige;
+  padding: 0.5%;
+  border-radius: 2rem;
+  margin: 1%;
+}

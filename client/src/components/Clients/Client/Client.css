@@ -79,3 +79,11 @@
 .fa-envelope {
   color: rgb(228, 91, 0);
 }
+.fa-lightbulb {
+  border-radius: 50%;
+  border: none;
+  width: 1rem;
+  height: 1rem;
+  color: rgb(255, 238, 0);
+  cursor: pointer;
+}

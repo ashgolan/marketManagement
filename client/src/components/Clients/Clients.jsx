@@ -4,16 +4,18 @@ import Client from "./Client/Client";
 import "./Clients.css";
 export default function Clients({ setClient, setMessage, message }) {
   const [clients, setClients] = useState([]);
+  const [toggleActiveClients, setToggleClients] = useState([]);
   const [transactions, setTransactions] = useState([]);
-  const [afterSave, setAfterSave] = useState(false);
+  const [justForRender, setJustForRender] = useState(false);
   useEffect(() => {
     const getClients = async () => {
       const { data } = await axios.get("http://localhost:5000/");
       setClients(data.clients);
+      setToggleClients(data.clients);
       setTransactions(data.transaction);
     };
     getClients();
-  }, [afterSave]);
+  }, [justForRender]);
 
   const sortClients = (e) => {
     e.preventDefault();
@@ -36,6 +38,25 @@ export default function Clients({ setClient, setMessage, message }) {
   };
   return (
     <div className="container">
+      <div className="range-active-notActive">
+        רק הקלינטים הפעילים
+        <input
+          onChange={(e) => {
+            if (e.target.value === "1") {
+              const activeClients = clients.filter((client) => client.isActive);
+              console.log(activeClients);
+              setToggleClients(() => activeClients);
+            } else {
+              setToggleClients(() => clients);
+              console.log(clients);
+            }
+          }}
+          type="range"
+          min={1}
+          max={2}
+        />
+        כל הקליינטים
+      </div>
       <form className="clients-form-container">
         <div className="headerProps">
           <div className="updownSort">
@@ -51,6 +72,7 @@ export default function Clients({ setClient, setMessage, message }) {
             שם קליינט
           </label>
         </div>
+        <i style={{ visibility: "hidden" }} class="fa-regular fa-lightbulb"></i>
         <div className="headerProps">
           <div className="updownSort">
             <i className="fa-solid fa-sort-up"></i>
@@ -99,7 +121,7 @@ export default function Clients({ setClient, setMessage, message }) {
         </div>
       </form>
       {/* {message.status && <h5 className="message">{message.message}</h5>} */}
-      {clients.map((client, index) => {
+      {toggleActiveClients.map((client, index) => {
         const clientTransactions = [];
         transactions.forEach((transaction) => {
           if (transaction.owner === client._id) {
@@ -115,7 +137,7 @@ export default function Clients({ setClient, setMessage, message }) {
             setMessage={setMessage}
             message={message}
             setClients={setClients}
-            setAfterSave={setAfterSave}
+            setJustForRender={setJustForRender}
           ></Client>
           // )
         );

@@ -11,14 +11,11 @@ export default function Client({
   clientTransactions,
   setClient,
   setMessage,
-  setAfterSave,
+  setJustForRender,
 }) {
   const [showClientChart, setShowClientChart] = useState(false);
   const [fetchingStatus, setFetchingStatus] = useContext(FetchingStatus);
-  const [save, setSave] = useState({
-    update: false,
-    delete: false,
-  });
+  const [action, setAction] = useState("makeIsActive");
   const [isChanged, setIsChanged] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const [clientDetails, setClientDetails] = useState({
@@ -55,7 +52,7 @@ export default function Client({
   };
   useEffect(() => {
     setTotalAmount(getTotalAmount());
-  }, [clientTransactions, totalAmount]);
+  }, [clientTransactions, totalAmount, client]);
 
   const openClientPage = () => {
     setClient(client);
@@ -69,10 +66,11 @@ export default function Client({
     setClient(client);
     navigate("/AddTransactionHome");
   };
-  const saveDeleteOrUpdate = async () => {
+  const saveDeleteOrUpdate = async (stateOfAction) => {
     try {
+      console.log(action);
       setFetchingStatus({ loading: true, error: false });
-      if (save.update) {
+      if (stateOfAction === "update") {
         const { data } = await axios.patch("http://localhost:5000/clients/", {
           ...clientDetails,
           _id: client._id,
@@ -86,13 +84,25 @@ export default function Client({
           };
         });
         setMessage({ status: true, message: "הפרטים עודכנו בהצלחה" });
-      } else {
-        const { data } = await axios.delete("http://localhost:5000/clients/", {
-          data: { _id: client._id },
+      } else if (stateOfAction === "makeNotActive") {
+        const { data } = await axios.patch("http://localhost:5000/clients/", {
+          isActive: false,
+          _id: client._id,
         });
-        setAfterSave(true);
+        // const { data } = await axios.delete("http://localhost:5000/clients/", {
+        //   data: { _id: client._id },
+        // });
+        setJustForRender((prev) => !prev);
         // setClient(() => null);
-        setMessage({ status: true, message: "תיק של הקליינט הוסר בהצלחה" });
+        setMessage({ status: true, message: "תיק של הקליינט מושבט כרגע " });
+      } else if (stateOfAction === "makeIsActive") {
+        console.log("aaa");
+        const { data } = await axios.patch("http://localhost:5000/clients/", {
+          isActive: true,
+          _id: client._id,
+        });
+        setJustForRender((prev) => !prev);
+        setMessage({ status: true, message: "תיק של קליינט הופעל מחדש" });
       }
       // delete client and render
       setTimeout(() => {
@@ -112,7 +122,7 @@ export default function Client({
       <form className="form-container">
         <input
           disabled={isDisabled}
-          value={clientDetails.firstName}
+          value={client.firstName}
           onChange={(e) =>
             setClientDetails((prev) => {
               return { ...prev, firstName: e.target.value };
@@ -120,11 +130,20 @@ export default function Client({
           }
           style={{ color: client.isActive ? "white" : "gray" }}
           className="clientProp"
-        />
+        ></input>
+        <i
+          style={{ visibility: client.isActive ? "hidden" : "visible" }}
+          class="fa-regular fa-lightbulb"
+          onClick={(e) => {
+            e.preventDefault();
+            setAction(() => "makeIsActive");
+            saveDeleteOrUpdate("makeIsActive");
+          }}
+        ></i>
 
         <input
           disabled={isDisabled}
-          value={clientDetails.fatherName}
+          value={client.fatherName}
           onChange={(e) =>
             setClientDetails((prev) => {
               return { ...prev, fatherName: e.target.value };
@@ -135,7 +154,7 @@ export default function Client({
         />
         <input
           disabled={isDisabled}
-          value={clientDetails.lastName}
+          value={client.lastName}
           onChange={(e) =>
             setClientDetails((prev) => {
               return { ...prev, lastName: e.target.value };
@@ -151,7 +170,12 @@ export default function Client({
           {" "}
           {totalAmount && totalAmount}
         </label>
-        <label className="clientProp">ש"ח</label>
+        <label
+          className="clientProp"
+          style={{ color: client.isActive ? "white" : "gray" }}
+        >
+          ש"ח
+        </label>
         <label
           className="clientProp"
           style={{ color: client.isActive ? "white" : "gray" }}
@@ -169,7 +193,7 @@ export default function Client({
                 onClick={() => {
                   setIsDisabled(true);
                   setIsChanged(false);
-                  saveDeleteOrUpdate();
+                  saveDeleteOrUpdate(action);
                 }}
               >
                 אישור
@@ -205,14 +229,14 @@ export default function Client({
               onClick={() => {
                 setIsDisabled(false);
                 setIsChanged(true);
-                setSave({ delete: false, update: true });
+                setAction(() => "update");
               }}
               className="fa-regular fa-pen-to-square"
             ></i>
             <i
               onClick={() => {
                 setIsChanged(true);
-                setSave({ delete: true, update: false });
+                setAction(() => "makeNotActive");
               }}
               className="fa-solid fa-user-xmark"
             ></i>

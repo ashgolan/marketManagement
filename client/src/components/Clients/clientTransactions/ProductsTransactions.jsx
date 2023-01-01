@@ -20,35 +20,35 @@ export default function ProductsTransactions({
       : "",
     comment: transaction.data[index] ? transaction.data[index].comment : "",
   });
-  const addProductForm = useRef();
-  const checkHandler = (e) => {
-    const isFilled = validation();
-    setChangeData((prev) => !prev);
-    if (isFilled) {
-      e.target.checked
-        ? localStorage.setItem(
-            `${transaction._id}-${index + 1}`,
-            JSON.stringify(itemsInRow)
-          )
-        : localStorage.removeItem(`${transaction._id}-${index + 1}`);
-    } else {
-      setChangeData((prev) => !prev);
-      e.target.checked = false;
-    }
-  };
+  // const addProductForm = useRef();
+  // const checkHandler = (e) => {
+  //   const isFilled = validation();
+  //   setChangeData((prev) => !prev);
+  //   if (isFilled) {
+  //     e.target.checked
+  //       ? localStorage.setItem(
+  //           `${transaction._id}-${index + 1}`,
+  //           JSON.stringify(itemsInRow)
+  //         )
+  //       : localStorage.removeItem(`${transaction._id}-${index + 1}`);
+  //   } else {
+  //     setChangeData((prev) => !prev);
+  //     e.target.checked = false;
+  //   }
+  // };
 
-  const validation = () => {
-    const form = new FormData(addProductForm.current);
-    const data = Object.fromEntries(form);
-    const vals = Object.values(data);
-    for (let prop in vals) {
-      if (vals[prop] === "") return false;
-    }
-    return true;
-  };
+  // const validation = () => {
+  //   const form = new FormData(addProductForm.current);
+  //   const data = Object.fromEntries(form);
+  //   const vals = Object.values(data);
+  //   for (let prop in vals) {
+  //     if (vals[prop] === "") return false;
+  //   }
+  //   return true;
+  // };
 
   return (
-    <form ref={addProductForm} className="productRow">
+    <form className="productRow">
       <label>{index + 1}</label>
       <input
         value={itemsInRow.productName}
@@ -120,7 +120,7 @@ export default function ProductsTransactions({
           })
         }
       ></input>
-      <input type="checkbox" onChange={(e) => checkHandler(e)} />
+      {/* <input type="checkbox" onChange={(e) => checkHandler(e)} /> */}
     </form>
   );
 }

@@ -24,17 +24,18 @@ export default function BidRow({
     const foundItem = inventoryData.find((item) => {
       return item.productName === e.target.value;
     });
-    setItemInRow((prev) => {
-      return {
-        ...prev,
-        productName: foundItem.productName,
-        serial: foundItem.serial,
-        category: foundItem.category,
-        price: foundItem.price,
-        totalAmount: foundItem.totalAmount,
-        comment: foundItem.comment,
-      };
-    });
+    foundItem &&
+      setItemInRow((prev) => {
+        return {
+          ...prev,
+          productName: foundItem.productName,
+          serial: foundItem.serial,
+          category: foundItem.category,
+          price: foundItem.price,
+          totalAmount: foundItem.totalAmount,
+          comment: foundItem.comment,
+        };
+      });
   };
   const checkHandler = (e) => {
     const isFilled = validation();
@@ -115,25 +116,26 @@ export default function BidRow({
         placeholder="קטגוריה"
         defaultValue={itemInRow.category}
       ></input>
-
       <input
         name="serial"
         className="input_box"
         placeholder="מקט"
         defaultValue={itemInRow.serial}
       ></input>
-      <select
-        name=""
-        id=""
-        ref={selectedItem}
+      <input
+        type="text"
+        list="products"
+        name="productsList"
+        className="input_box"
         defaultValue={itemInRow.desc}
         onChange={(e) => setBySelectedValue(e)}
-      >
+      ></input>
+      <datalist id="products" ref={selectedItem}>
         <option defaultValue="בחר מוצר" selected disabled>
           בחר מוצר
         </option>
         {allItems}
-      </select>
+      </datalist>
       <input disabled className="row_number" value={numOfRow + 1} />
     </form>
   );
