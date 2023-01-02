@@ -110,22 +110,26 @@ export default function BidPage({ client, message, setMessage }) {
       pdf.save("order.pdf");
     });
   };
+  const sendMail = async () => {
+    console.log("send mail");
+    try {
+      const { data } = await axios.post("http://localhost:5000/email/");
+      console.log(data);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
   return (
     <div className="bid_container" id="pdfOrder">
       {message.status && <h5 className="message">{message.message}</h5>}
       <form className="header_container">
-        <img src="./img/sendMail.png" alt="" />
+        <img onClick={sendMail} src="./img/sendMail.png" alt="" />
         <img
           style={{ cursor: "pointer" }}
           onClick={exportToPdf}
           src="./img/savePdf.png"
           alt=""
         />
-        {/* <div className="pdf-btn save-pdf-data">
-          <i class="fa-solid fa-file-pdf"></i>
-          <input value="PDF" />
-        </div> */}
-
         <div className="save-pdf-data">
           <i class="fa-solid fa-square-plus"></i>
           <label
@@ -165,18 +169,6 @@ export default function BidPage({ client, message, setMessage }) {
             });
           }}
         />
-        {/* <input
-          required
-          className="date"
-          type="date"
-          placeholder="תאריך"
-          value={bid.date}
-          onChange={(e) => {
-            setBid((prev) => {
-              return { ...prev, date: e.target.value };
-            });
-          }}
-        /> */}
         <div
           style={{
             width: "15%",

@@ -6,7 +6,7 @@ export default function NavBar() {
     <div className="nav-container">
       <div className="nav-logo">
         <Link to="/">
-          <img style={{ width: "30%" }} src="/img/logo2.png" alt="" />
+          <img style={{ width: "30%" }} src="/img/logo3.png" alt="" />
         </Link>
       </div>
       <div className="nav-photos">

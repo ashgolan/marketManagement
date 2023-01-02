@@ -21,7 +21,7 @@ export default function Clients({ setClient, setMessage, message }) {
     e.preventDefault();
     const id = e.target.id;
     let sortedArr = [];
-    sortedArr = clients.sort((a, b) => {
+    sortedArr = toggleActiveClients.sort((a, b) => {
       const nameA = a[id].toUpperCase();
       const nameB = b[id].toUpperCase();
       if (nameA < nameB) {
@@ -32,6 +32,7 @@ export default function Clients({ setClient, setMessage, message }) {
       }
       return 0;
     });
+    console.log(sortedArr);
     setClients(() => {
       return [...sortedArr];
     });
@@ -39,7 +40,7 @@ export default function Clients({ setClient, setMessage, message }) {
   return (
     <div className="container">
       <div className="range-active-notActive">
-        רק הקלינטים הפעילים
+        קלינטים פעילים
         <input
           onChange={(e) => {
             if (e.target.value === "1") {
@@ -72,7 +73,10 @@ export default function Clients({ setClient, setMessage, message }) {
             שם קליינט
           </label>
         </div>
-        <i style={{ visibility: "hidden" }} class="fa-regular fa-lightbulb"></i>
+        <i
+          style={{ visibility: "hidden" }}
+          className="fa-regular fa-lightbulb"
+        ></i>
         <div className="headerProps">
           <div className="updownSort">
             <i className="fa-solid fa-sort-up"></i>

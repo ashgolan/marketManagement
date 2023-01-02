@@ -29,6 +29,8 @@ export default function BuyingChart({ buyingData }) {
               "#50AF95",
               "#f3ba2f",
               "#2a71d0",
+              "#EA8164",
+              "#EA64B8",
             ],
             borderColor: "black",
             borderWidth: 1,

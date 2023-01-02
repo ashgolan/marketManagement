@@ -37,6 +37,7 @@ export default function Client({
           "#50AF95",
           "#f3ba2f",
           "#2a71d0",
+          "#EA8164",
         ],
         borderColor: "black",
         borderWidth: 1,
@@ -96,13 +97,20 @@ export default function Client({
         // setClient(() => null);
         setMessage({ status: true, message: "תיק של הקליינט מושבט כרגע " });
       } else if (stateOfAction === "makeIsActive") {
-        console.log("aaa");
         const { data } = await axios.patch("http://localhost:5000/clients/", {
           isActive: true,
           _id: client._id,
         });
         setJustForRender((prev) => !prev);
         setMessage({ status: true, message: "תיק של קליינט הופעל מחדש" });
+      } else if (stateOfAction === "sendMail") {
+        const { data } = await axios.post("http://localhost:5000/sendMail/", {
+          mail: client.email,
+          name: client.firstName,
+          amount: totalAmount,
+        });
+        setJustForRender((prev) => !prev);
+        setMessage({ status: true, message: "תזכורת לקליינט נשלחה בהצלחה" });
       }
       // delete client and render
       setTimeout(() => {
@@ -133,7 +141,7 @@ export default function Client({
         ></input>
         <i
           style={{ visibility: client.isActive ? "hidden" : "visible" }}
-          class="fa-regular fa-lightbulb"
+          className="fa-regular fa-lightbulb"
           onClick={(e) => {
             e.preventDefault();
             setAction(() => "makeIsActive");
@@ -222,7 +230,14 @@ export default function Client({
               onClick={openTransactionHome}
               className="fa-regular fa-credit-card"
             ></i>
-            <i className="fa-solid fa-envelope"></i>
+            <i
+              onClick={() => {
+                setIsDisabled(false);
+                setIsChanged(true);
+                setAction(() => "sendMail");
+              }}
+              className="fa-solid fa-envelope"
+            ></i>
             <i onClick={openBidtPage} className="fa-solid fa-receipt"></i>
             <i onClick={openClientPage} className="fa-solid fa-chart-line"></i>
             <i
