@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useContext } from "react";
 import "./Delete_Item.css";
 import { FetchingStatus } from "../../../utils/context";
+import { Api } from "../../../utils/Api";
 export default function DeleteItem({
   itemInChange,
   setItemInChange,
@@ -30,7 +31,7 @@ export default function DeleteItem({
   const deleteData = async () => {
     try {
       setFetchingStatus({ loading: true, error: false });
-      const res = await axios.delete(`http://localhost:5000/inventory`, {
+      const res = await Api.delete(`/inventory`, {
         data: { _id: itemId },
       });
       setMessage({ status: true, message: "המוצר נמחק בהצלחה" });

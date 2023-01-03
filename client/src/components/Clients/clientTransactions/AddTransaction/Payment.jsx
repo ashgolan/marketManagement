@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Api } from "../../../../utils/Api";
 import { FetchingStatus } from "../../../../utils/context";
 import "./Payment.css";
 export default function AddTransactionHome({ client, setMessage, message }) {
@@ -20,7 +21,7 @@ export default function AddTransactionHome({ client, setMessage, message }) {
     e.preventDefault();
     try {
       setFetchingStatus({ loading: true, error: false });
-      const data = await axios.post("http://localhost:5000/transactions", {
+      const data = await Api.post("/transactions", {
         ...newPayment,
         owner: client._id,
         totalAmount: newPayment.totalAmount * -1,

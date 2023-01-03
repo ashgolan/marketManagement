@@ -3,6 +3,7 @@ import React from "react";
 import "./EditItem.css";
 import { FetchingStatus } from "../../../utils/context";
 import { useContext } from "react";
+import { Api } from "../../../utils/Api";
 export default function EditItem({
   itemId,
   itemInChange,
@@ -33,7 +34,7 @@ export default function EditItem({
       setFetchingStatus({ loading: true, error: false });
       console.log(itemId);
       console.log(itemsValues);
-      await axios.patch(`http://localhost:5000/inventory/`, {
+      await Api.patch(`/inventory/`, {
         ...itemsValues,
         _id: itemId,
       });

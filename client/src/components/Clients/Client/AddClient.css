@@ -1,3 +1,11 @@
+.add-client-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 3% auto;
+}
+
 .add-client-form {
   display: flex;
   flex-direction: column;
@@ -14,7 +22,7 @@
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
-  padding: 2%;
+  padding: 1%;
   margin: 1%;
 }
 .form-group > select,
@@ -24,11 +32,14 @@
   padding: 2%;
   width: 70%;
   text-align: right;
-  border: none;
+  border: 1px rgb(139, 132, 132) solid;
   border-radius: 1rem;
-  border-radius: 1rem;
-  background-color: rgba(99, 14, 14, 0.671);
+  background-color: rgba(255, 255, 255, 0.507);
+  color: black;
+}
+.form-group > label {
   color: whitesmoke;
+  border: none;
 }
 .form-group > label {
   background-color: rgb(14, 79, 90);
@@ -38,16 +49,11 @@
 }
 
 .add-client-submit {
-  background-color: rgb(255, 255, 255);
-  color: rgb(94, 0, 0);
+  color: rgb(39, 1, 1);
+  background-color: #f2e86b;
+  border: none;
   font-weight: bold;
   text-align: center;
   width: 50%;
   margin: auto;
-}
-.addClientPage {
-  width: 100vw;
-  height: 75vh;
-  background: url("/public/img/footer4.png") center no-repeat;
-  background-size: cover;
 }

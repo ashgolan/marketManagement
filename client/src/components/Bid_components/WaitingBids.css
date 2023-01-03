@@ -17,8 +17,21 @@
   width: 10rem;
   padding: 0.5rem;
   font-size: 0.9rem;
-  border: 1px rgb(202, 196, 196) dotted;
+  /* border: 1px rgb(78, 72, 72) solid; */
   text-align: right;
+  background-color: rgba(255, 255, 255, 0.699);
+  margin: 1%;
+  border-radius: 1rem;
+  border: 0.5px rgb(204, 201, 201) solid;
+  color: black;
+}
+
+.orderRow > div:last-child {
+  border: none;
+  background-color: transparent;
+  text-align: center;
+  font-weight: bold;
+  color: brown;
 }
 
 .order-container {
@@ -44,6 +57,11 @@
   border: 1px rgb(148, 141, 37) solid;
   color: brown;
   font-weight: bold;
+}
+.titles > div {
+  color: brown;
+  border: none;
+  background-color: rgba(221, 208, 135, 0.5);
 }
 .orderheader {
   /* width: 70%; */

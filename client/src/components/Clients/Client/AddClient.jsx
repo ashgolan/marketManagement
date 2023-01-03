@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
+import { Api } from "../../../utils/Api";
 import { FetchingStatus } from "../../../utils/context";
 import "./AddClient.css";
 export default function AddClient({ setMessage, message }) {
@@ -16,6 +17,7 @@ export default function AddClient({ setMessage, message }) {
     fatherName: "",
     lastName: "",
     phone: "",
+    email: "",
     comment: "",
     isContractor: "",
   });
@@ -23,7 +25,7 @@ export default function AddClient({ setMessage, message }) {
     e.preventDefault();
     try {
       setFetchingStatus({ loading: true, error: false });
-      const data = await axios.post("http://localhost:5000/clients", {
+      const data = await Api.post("/clients", {
         ...newUser,
         fatherName: newUser.fatherName === "" ? "לא צויין" : newUser.fatherName,
         isContractor: newUser.isContractor === "כן" ? true : false,
@@ -35,10 +37,8 @@ export default function AddClient({ setMessage, message }) {
       }, 1000);
     } catch (e) {
       setFetchingStatus({ loading: false, error: true });
-      setMessage({
-        status: true,
-        message: "תקלה בקריאת הנתונים",
-      });
+      setMessage({ status: true, message: "לפי מס.הפלאפון . השם קיים במערכת" });
+
       setTimeout(() => {
         setMessage({ status: false, message: null });
         setFetchingStatus({ loading: false, error: true });
@@ -46,7 +46,7 @@ export default function AddClient({ setMessage, message }) {
     }
   };
   return (
-    <div className="addClientPage container">
+    <div className="addClientPage add-client-container">
       <form onSubmit={(e) => addUser(e)} className="add-client-form">
         {message.status && <h5 className="message">{message.message}</h5>}
 
@@ -57,7 +57,7 @@ export default function AddClient({ setMessage, message }) {
             value={newUser.firstName}
             onChange={(e) =>
               setNewUser((prev) => {
-                return { ...newUser, firstName: e.target.value };
+                return { ...prev, firstName: e.target.value };
               })
             }
             ref={firstNameFocus}
@@ -70,7 +70,7 @@ export default function AddClient({ setMessage, message }) {
             onChange={(e) => {
               setNewUser((prev) => {
                 return {
-                  ...newUser,
+                  ...prev,
                   fatherName: e.target.value,
                 };
               });
@@ -84,7 +84,7 @@ export default function AddClient({ setMessage, message }) {
             value={newUser.lastName}
             onChange={(e) =>
               setNewUser((prev) => {
-                return { ...newUser, lastName: e.target.value };
+                return { ...prev, lastName: e.target.value };
               })
             }
           />
@@ -93,10 +93,25 @@ export default function AddClient({ setMessage, message }) {
           <label htmlFor="">טלפון</label>
           <input
             required
+            type="number"
+            min={0}
             value={newUser.phone}
             onChange={(e) =>
               setNewUser((prev) => {
-                return { ...newUser, phone: e.target.value };
+                return { ...prev, phone: e.target.value };
+              })
+            }
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="">מייל</label>
+          <input
+            required
+            type="email"
+            value={newUser.email}
+            onChange={(e) =>
+              setNewUser((prev) => {
+                return { ...prev, email: e.target.value };
               })
             }
           />
@@ -107,7 +122,7 @@ export default function AddClient({ setMessage, message }) {
             value={newUser.comment}
             onChange={(e) =>
               setNewUser((prev) => {
-                return { ...newUser, comment: e.target.value };
+                return { ...prev, comment: e.target.value };
               })
             }
           />
@@ -122,7 +137,7 @@ export default function AddClient({ setMessage, message }) {
             onChange={(e) => {
               setNewUser((prev) => {
                 return {
-                  ...newUser,
+                  ...prev,
                   isContractor: e.target.value === "כן" ? true : false,
                 };
               });

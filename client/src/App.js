@@ -4,7 +4,7 @@ import Clients from "./components/Clients/Clients";
 import "./App.css";
 import HomePage from "./components/HomePage/HomePage";
 import NavBar from "./components/NavBar/NavBar";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import TransactionContainer from "./components/Clients/clientTransactions/TransactionContainer";
 import AddClient from "./components/Clients/Client/AddClient";
 import AddTransactionHome from "./components/Clients/clientTransactions/AddTransaction/Payment";
@@ -13,7 +13,11 @@ import { FetchingStatus } from "./utils/context";
 import BidPage from "./components/Bid_components/BidPage";
 import WaitingBids from "./components/Bid_components/WaitingBids";
 import ProfitMode from "./components/ProfitMode/ProfitMode";
+import { Api } from "./utils/Api";
+import Login from "./components/Login/Login";
 function App() {
+  const navigate = useNavigate();
+  const [loginState, setLoginState] = useState(false);
   const [message, setMessage] = useState({ status: false, message: null });
   const [clients, setClients] = useState([]);
   const [bids, SetBids] = useState([]);
@@ -26,9 +30,12 @@ function App() {
     message: null,
   });
   useEffect(() => {
+    const myItem = localStorage.getItem("userID");
+    localStorage.clear();
+    localStorage.setItem("userID", myItem);
     const getClients = async () => {
       try {
-        const { data } = await axios.get("http://localhost:5000/");
+        const { data } = await Api.get("/");
         setClients(data.clients);
         SetBids(data.bids);
         setTransactions(data.transaction);
@@ -36,11 +43,19 @@ function App() {
         console.log(e.message);
       }
     };
-    getClients();
+    if (
+      localStorage.getItem("userID") &&
+      localStorage.getItem("userID") !== "null"
+    ) {
+      navigate("/");
+      getClients();
+    } else {
+      navigate("/login");
+    }
   }, []);
   return (
     <>
-      <NavBar></NavBar>
+      <NavBar setLoginState={setLoginState}></NavBar>
       {fetchingStatus.loading && (
         <div className="loading">
           <span className="loader"></span>
@@ -48,7 +63,16 @@ function App() {
       )}
       <FetchingStatus.Provider value={[fetchingStatus, setFetchingStatus]}>
         <Routes>
-          <Route path="/homepage" element={<HomePage />}></Route>
+          <Route
+            path="/"
+            element={
+              <HomePage loginState={loginState} setLoginState={setLoginState} />
+            }
+          ></Route>
+          <Route
+            path="/Login"
+            element={<Login setLoginState={setLoginState} />}
+          ></Route>
           <Route
             path="/clients"
             element={

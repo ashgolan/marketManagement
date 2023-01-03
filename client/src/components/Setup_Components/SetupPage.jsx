@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState, useContext } from "react";
+import { Api } from "../../utils/Api";
 import { FetchingStatus } from "../../utils/context";
 import AddItem from "./Add_Item/AddItem";
 import AddItemBtn from "./Add_Item/AddItemBtn";
@@ -18,9 +19,12 @@ export default function SetupPage() {
   });
   const [inventoryProducts, setInventoryProducts] = useState([]);
   useEffect(() => {
+    const myItem = localStorage.getItem("userID");
+    localStorage.clear();
+    localStorage.setItem("userID", myItem);
     const getData = async () => {
       try {
-        const { data } = await axios.get("http://localhost:5000/inventory");
+        const { data } = await Api.get("/inventory");
         console.log(data);
         setInventoryProducts(data);
       } catch (e) {

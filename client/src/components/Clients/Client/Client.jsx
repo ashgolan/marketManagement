@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Api } from "../../../utils/Api";
 import { FetchingStatus } from "../../../utils/context";
 
 import "./Client.css";
@@ -72,7 +73,7 @@ export default function Client({
       console.log(action);
       setFetchingStatus({ loading: true, error: false });
       if (stateOfAction === "update") {
-        const { data } = await axios.patch("http://localhost:5000/clients/", {
+        const { data } = await Api.patch("/clients/", {
           ...clientDetails,
           _id: client._id,
         });
@@ -86,7 +87,7 @@ export default function Client({
         });
         setMessage({ status: true, message: "הפרטים עודכנו בהצלחה" });
       } else if (stateOfAction === "makeNotActive") {
-        const { data } = await axios.patch("http://localhost:5000/clients/", {
+        const { data } = await Api.patch("/clients/", {
           isActive: false,
           _id: client._id,
         });
@@ -97,14 +98,14 @@ export default function Client({
         // setClient(() => null);
         setMessage({ status: true, message: "תיק של הקליינט מושבט כרגע " });
       } else if (stateOfAction === "makeIsActive") {
-        const { data } = await axios.patch("http://localhost:5000/clients/", {
+        const { data } = await Api.patch("/clients/", {
           isActive: true,
           _id: client._id,
         });
         setJustForRender((prev) => !prev);
         setMessage({ status: true, message: "תיק של קליינט הופעל מחדש" });
       } else if (stateOfAction === "sendMail") {
-        const { data } = await axios.post("http://localhost:5000/sendMail/", {
+        const { data } = await Api.post("/sendMail/", {
           mail: client.email,
           name: client.firstName,
           amount: totalAmount,
@@ -126,7 +127,7 @@ export default function Client({
     }
   };
   return (
-    <div className="container">
+    <div className="client-container">
       <form className="form-container">
         <input
           disabled={isDisabled}

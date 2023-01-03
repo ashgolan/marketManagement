@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Api } from "../../utils/Api";
 import Client from "./Client/Client";
 import "./Clients.css";
 export default function Clients({ setClient, setMessage, message }) {
@@ -8,8 +9,11 @@ export default function Clients({ setClient, setMessage, message }) {
   const [transactions, setTransactions] = useState([]);
   const [justForRender, setJustForRender] = useState(false);
   useEffect(() => {
+    const myItem = localStorage.getItem("userID");
+    localStorage.clear();
+    localStorage.setItem("userID", myItem);
     const getClients = async () => {
-      const { data } = await axios.get("http://localhost:5000/");
+      const { data } = await Api.get("/");
       setClients(data.clients);
       setToggleClients(data.clients);
       setTransactions(data.transaction);
@@ -38,7 +42,7 @@ export default function Clients({ setClient, setMessage, message }) {
     });
   };
   return (
-    <div className="container">
+    <div className="clients-container">
       <div className="range-active-notActive">
         קלינטים פעילים
         <input
@@ -102,7 +106,7 @@ export default function Clients({ setClient, setMessage, message }) {
             <i className="fa-solid fa-sort-down"></i>
           </div>
           <label id="totalAmount" onClick={(e) => sortClients(e)}>
-            חוב
+            יתרה
           </label>
         </div>
         <div className="headerProps">

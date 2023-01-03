@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useContext } from "react";
 import { useState } from "react";
+import { Api } from "../../../utils/Api";
 import { FetchingStatus } from "../../../utils/context";
 import "./Add_item.css";
 export default function AddItem({ setaddItemToggle }) {
@@ -19,10 +20,7 @@ export default function AddItem({ setaddItemToggle }) {
   const addItem = async () => {
     try {
       setFetchingStatus({ loading: true, error: false });
-      const { data } = await axios.post(
-        "http://localhost:5000/inventory",
-        itemsValues
-      );
+      const { data } = await Api.post("/inventory", itemsValues);
       setFetchingStatus({ loading: false, error: false });
     } catch {
       setFetchingStatus({ loading: false, error: true });

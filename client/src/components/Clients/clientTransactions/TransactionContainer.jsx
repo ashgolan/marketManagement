@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./TransactionContainer.css";
 import Transaction from "./Transaction";
 import { FetchingStatus } from "../../../utils/context";
+import { Api } from "../../../utils/Api";
 export default function TransactionContainer({ setMessage, message, client }) {
   const [fetchingStatus, setFetchingStatus] = useContext(FetchingStatus);
   const [totalAmount, setTotalAmount] = useState(0);
@@ -12,7 +13,7 @@ export default function TransactionContainer({ setMessage, message, client }) {
   useEffect(() => {
     const getTransactions = async () => {
       try {
-        const { data } = await axios.get("http://localhost:5000/transactions");
+        const { data } = await Api.get("/transactions");
         const clientTransactions = data.filter(
           (transaction) => transaction.owner === client._id
         );

@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { FetchingStatus } from "../../utils/context";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { Api } from "../../utils/Api";
 export default function BidPage({ client, message, setMessage }) {
   // eslint-disable-next-line
   const [fetchingStatus, setFetchingStatus] = useContext(FetchingStatus);
@@ -24,11 +25,14 @@ export default function BidPage({ client, message, setMessage }) {
     comment: "",
   });
   useEffect(() => {
+    const myItem = localStorage.getItem("userID");
     localStorage.clear();
+    localStorage.setItem("userID", myItem);
+
+    // localStorage.clear();
     const getInventoryData = async () => {
       try {
-        const { data } = await axios.get("http://localhost:5000/inventory/");
-        console.log(data);
+        const { data } = await Api.get("/inventory");
         setInventoryData(() => data);
       } catch (e) {
         console.log(e.message);
@@ -41,19 +45,16 @@ export default function BidPage({ client, message, setMessage }) {
       setFetchingStatus({ loading: true, error: false });
       console.log(id);
       if (id === "newBid") {
-        const { data } = await axios.post("http://localhost:5000/bids/", {
+        const { data } = await Api.post("/bids", {
           ...bidObj,
           totalAmount: totalAmountOfBid,
         });
       } else {
-        const { data } = await axios.post(
-          "http://localhost:5000/transactions/",
-          {
-            owner: client._id,
-            type: "buying",
-            data: bidObj.data,
-          }
-        );
+        const { data } = await Api.post("/transactions", {
+          owner: client._id,
+          type: "buying",
+          data: bidObj.data,
+        });
       }
       setFetchingStatus({ loading: false, error: false });
     } catch (e) {
@@ -66,8 +67,10 @@ export default function BidPage({ client, message, setMessage }) {
     e.preventDefault();
     const allBidRows = [];
     const ls = Object.values(localStorage);
+    const lsKeys = Object.keys(localStorage);
     for (let item in ls) {
-      allBidRows.push(JSON.parse(ls[item]));
+      if (localStorage.key(item) !== "userID")
+        allBidRows.push(JSON.parse(ls[item]));
     }
     setBid((prev) => {
       return { ...prev, data: allBidRows };
@@ -82,7 +85,10 @@ export default function BidPage({ client, message, setMessage }) {
       },
       e.target.id
     );
+    const myItem = localStorage.getItem("userID");
     localStorage.clear();
+    localStorage.setItem("userID", myItem);
+
     setMessage(true);
     setTimeout(() => {
       navigate("/clients");
@@ -112,9 +118,14 @@ export default function BidPage({ client, message, setMessage }) {
   };
   const sendMail = async () => {
     console.log("send mail");
+    const input = document.getElementById("pdfOrder");
+    console.log(`${input}`);
     try {
-      const { data } = await axios.post("http://localhost:5000/email/");
-      console.log(data);
+      const { data } = await Api.post("/sendMail", {
+        mail: client.email,
+        name: client.firstName,
+        amount: totalAmountOfBid,
+      });
     } catch (e) {
       console.log(e.message);
     }

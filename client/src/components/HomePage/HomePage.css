@@ -1,0 +1,22 @@
+.homepage-container {
+  /* background: url("/public/img/home-background1.png"); */
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  font-size: 8rem;
+  font-weight: bold;
+  color: rgb(47, 45, 49);
+}
+
+a > .home-log-btn {
+  font-size: 1rem;
+  padding: 3% 0;
+  border-radius: 2rem;
+  border: none;
+  background-color: rgb(110, 53, 87);
+  color: whitesmoke;
+  width: 20rem;
+}

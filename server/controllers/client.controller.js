@@ -3,9 +3,7 @@ import { Transaction } from "../models/transaction.model.js";
 export const addClient = async (req, res) => {
   try {
     const check = await Client.findOne({
-      firstName: req.body.firstName,
-      fatherName: req.body.fatherName,
-      lastName: req.body.lastName,
+      phone: req.body.phone,
     });
     if (check) throw Error("client was excist!!");
     const client = await Client.create(req.body);
@@ -55,15 +53,6 @@ export const updateClient = async (req, res) => {
       { $set: req.body },
       { new: true }
     );
-    // const newClientDetails = await Client.updateOne(
-    //   { _id: client._id },
-    //   {
-    //     ...client,
-    //     firstName: req.body.firstName,
-    //     fatherName: req.body.fatherName,
-    //     lastName: req.body.lastName,
-    //   }
-    // );
     if (!client) throw Error("incorrect data !!");
     res.status(200).send(client);
   } catch (e) {
