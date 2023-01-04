@@ -25,14 +25,11 @@
   border: none;
   border-radius: 20px 0 20px 0;
   display: flex;
-  background-color: rgba(48, 45, 45, 0.836);
+  background-color: rgb(48, 45, 45);
   flex-direction: row-reverse;
   width: 60rem;
   margin: auto;
   justify-content: space-between;
-  box-shadow: rgba(221, 230, 241, 0.4) 0px 0px 0px 1px,
-    rgba(233, 166, 166, 0.65) 0px 2px 3px -1px,
-    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
   align-items: center;
 }
 .updownSort {
