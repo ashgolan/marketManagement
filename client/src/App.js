@@ -14,6 +14,7 @@ import WaitingBids from "./components/Bid_components/WaitingBids";
 import ProfitMode from "./components/ProfitMode/ProfitMode";
 import { Api } from "./utils/Api";
 import Login from "./components/Login/Login";
+import ErrorPage from "./components/ErrorPage/ErrorPage";
 function App() {
   const navigate = useNavigate();
   const [loginState, setLoginState] = useState(false);
@@ -133,6 +134,7 @@ function App() {
             path="/ProfitMode"
             element={<ProfitMode message={message} setMessage={setMessage} />}
           ></Route>
+          <Route path="*" element={<ErrorPage />}></Route>
         </Routes>
       </FetchingStatus.Provider>
     </>

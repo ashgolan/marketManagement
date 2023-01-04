@@ -10,7 +10,7 @@ export default function NavBar({ setLoginState }) {
       await Api.get("/logout");
       localStorage.removeItem("userID");
       setLoginState((prev) => !prev);
-      navigate("/login");
+      navigate("/");
     } catch {
       console.log("error");
     }
