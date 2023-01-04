@@ -146,6 +146,7 @@ export default function Clients({ setClient, setMessage, message }) {
             setClients={setClients}
             setJustForRender={setJustForRender}
           ></Client>
+          // )
         );
       })}
     </div>

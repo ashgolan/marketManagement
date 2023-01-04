@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Api } from "../../utils/Api";
 import { FetchingStatus } from "../../utils/context";
 import "./WaitingBids.css";
+import { exportToPdf } from "../../utils/exportToPdf";
 export default function WaitingBids({ setMessage, message }) {
   const [selectedOption, setSelectedOption] = useState({
     bidId: "",
@@ -96,8 +97,14 @@ export default function WaitingBids({ setMessage, message }) {
       );
     });
   return (
-    <div>
+    <div id="pdfOrder">
       <form className="bid-container">
+        <img
+          style={{ cursor: "pointer", width: "5%" }}
+          onClick={() => exportToPdf("pdfOrder")}
+          src="./img/savePdf.png"
+          alt=""
+        />
         <button
           onClick={() => deleteOrApproveBid("approve")}
           className="save-delete-bid-btn"

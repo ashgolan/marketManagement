@@ -5,8 +5,7 @@ import BidRow from "./BidRow";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { FetchingStatus } from "../../utils/context";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
+import { exportToPdf } from "../../utils/exportToPdf";
 import { Api } from "../../utils/Api";
 export default function BidPage({ client, message, setMessage }) {
   // eslint-disable-next-line
@@ -91,49 +90,13 @@ export default function BidPage({ client, message, setMessage }) {
     }, 1000);
   };
 
-  const exportToPdf = () => {
-    const input = document.getElementById("pdfOrder");
-    html2canvas(input, {
-      scale: 2,
-      logging: true,
-      letterRendering: 1,
-      useCORS: true,
-    }).then((canvas) => {
-      const imgWidth = 208;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      const widthRatio = imgWidth / canvas.width;
-      const heightRatio = imgHeight / canvas.height;
-      const ratio = widthRatio > heightRatio ? heightRatio : widthRatio;
-      const canvasWidth = canvas.width * ratio;
-      const marginX = (imgWidth - canvasWidth) / 2;
-      const imgData = canvas.toDataURL("img/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-      pdf.addImage(imgData, "PNG", marginX, 0, imgWidth, imgHeight);
-      pdf.save("order.pdf");
-    });
-  };
-  const sendMail = async () => {
-    console.log("send mail");
-    const input = document.getElementById("pdfOrder");
-    console.log(`${input}`);
-    try {
-      const { data } = await Api.post("/sendMail", {
-        mail: client.email,
-        name: client.firstName,
-        amount: totalAmountOfBid,
-      });
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
   return (
     <div className="bid_container" id="pdfOrder">
       {message.status && <h5 className="message">{message.message}</h5>}
       <form className="header_container">
-        <img onClick={sendMail} src="./img/sendMail.png" alt="" />
         <img
           style={{ cursor: "pointer" }}
-          onClick={exportToPdf}
+          onClick={() => exportToPdf("pdfOrder")}
           src="./img/savePdf.png"
           alt=""
         />
