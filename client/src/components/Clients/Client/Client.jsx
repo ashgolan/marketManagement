@@ -46,7 +46,7 @@ export default function Client({
     clientTransactions.forEach((transaction) => {
       count += transaction.totalAmount;
     });
-    return count;
+    return count.toFixed(2);
   };
   useEffect(() => {
     setClientDetails({
@@ -172,7 +172,7 @@ export default function Client({
           className="clientProp"
         >
           {" "}
-          {totalAmount && totalAmount}
+          {totalAmount && Number(totalAmount).toFixed(1)}
         </label>
         <label
           className="clientProp"

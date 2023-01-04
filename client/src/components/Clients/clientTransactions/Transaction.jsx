@@ -47,7 +47,7 @@ export default function Transaction({ client, transaction, setMessage }) {
             borderRadius: "0.7rem",
           }}
         >
-          {transaction.totalAmount}
+          {Number(transaction.totalAmount).toFixed(2)}
         </label>
       </form>
       <form className="productRow">
