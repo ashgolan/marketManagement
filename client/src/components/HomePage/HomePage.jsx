@@ -5,7 +5,6 @@ export default function HomePage({ loginState, setLoginState }) {
   return (
     <div className="homepage-container">
       <img className="home-icon" src="/img/robic.png" alt="" />
-
       <label htmlFor="">מנוהל</label>
       <label style={{ fontSize: "2rem" }} htmlFor="">
         לניהול מושלם

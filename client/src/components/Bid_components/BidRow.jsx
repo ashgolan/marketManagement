@@ -13,7 +13,7 @@ export default function BidRow({
     serial: "",
     category: "",
     quantity: "",
-    price: "",
+    finalPrice: "",
     totalAmount: "",
     comment: "",
   });
@@ -31,7 +31,7 @@ export default function BidRow({
           productName: foundItem.productName,
           serial: foundItem.serial,
           category: foundItem.category,
-          price: foundItem.price,
+          finalPrice: foundItem.finalPrice,
           totalAmount: foundItem.totalAmount,
           comment: foundItem.comment,
         };
@@ -93,8 +93,8 @@ export default function BidRow({
           setItemInRow((prev) => {
             return {
               ...prev,
-              totalAmount: prev.price
-                ? +(prev.price * e.target.value).toFixed(2)
+              totalAmount: prev.finalPrice
+                ? +(prev.finalPrice * e.target.value).toFixed(2)
                 : e.target.value,
               quantity: e.target.value,
             };
@@ -105,7 +105,7 @@ export default function BidRow({
         name="price"
         className="input_box"
         placeholder="מחיר"
-        defaultValue={itemInRow.price}
+        defaultValue={itemInRow.finalPrice}
       ></input>
       <input
         name="category"
@@ -124,7 +124,7 @@ export default function BidRow({
         list="products"
         name="productsList"
         className="input_box"
-        defaultValue={itemInRow.desc}
+        defaultValue={itemInRow.productName}
         onChange={(e) => setBySelectedValue(e)}
       ></input>
       <datalist id="products" ref={selectedItem}>

@@ -23,7 +23,6 @@ export const login = (req, res) => {
     username: req.body.username,
     password: req.body.password,
   });
-  console.log(user);
   req.login(user, function (err) {
     if (err) {
       console.log(err);
