@@ -11,10 +11,13 @@ import session from "express-session";
 import { userRouter } from "./router/user.router.js";
 import * as url from "url";
 import path from "path";
-import store from "connect-redis";
-
-const RedisStore = store(session);
+import RedisStore from "connect-redis";
+import { createClient } from "redis";
+const redisStore = RedisStore(session);
 const __dirname = url.fileURLToPath(new URL("./", import.meta.url));
+
+let redisClient = createClient({ legacyMode: true });
+redisClient.connect().catch(console.error);
 
 export const app = Express();
 app.get("*", (req, res) => {
@@ -35,20 +38,13 @@ app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.set("trust proxy", 1);
-
-app.use(
-  session({
-    cookie: {
-      secure: true,
-      maxAge: 60000,
-    },
-    store: new RedisStore(),
-    secret: "outlittlesecret",
-    saveUninitialized: true,
-    resave: false,
-  })
-);
+// app.set("trust proxy", 1);
+session({
+  store: new RedisStore({ client: redisClient }),
+  saveUninitialized: false,
+  secret: "outlittlesecret",
+  resave: false,
+});
 
 app.use(function (req, res, next) {
   if (!req.session) {
