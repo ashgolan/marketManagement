@@ -13,7 +13,7 @@ import * as url from "url";
 import path from "path";
 import RedisStore from "connect-redis";
 import { createClient } from "redis";
-const redisStore = RedisStore(session);
+// const redisStore = RedisStore(session);
 const __dirname = url.fileURLToPath(new URL("./", import.meta.url));
 let redisClient = createClient({ legacyMode: true });
 redisClient.connect().catch(console.error);
