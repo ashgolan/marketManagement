@@ -22,16 +22,17 @@ app.get("*", (req, res) => {
 app.use(Express.json());
 app.use(cors());
 
-app.use(
-  session({
-    secret: "outlittlesecret",
-    resave: false,
-    saveUninitialized: false,
-  })
-);
+// app.use(
+//   session({
+//     secret: "outlittlesecret",
+//     resave: false,
+//     saveUninitialized: false,
+//   })
+// );
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.set("trust proxy", 1);
 
 app.use(
@@ -41,7 +42,7 @@ app.use(
       maxAge: 60000,
     },
     store: new RedisStore(),
-    secret: "secret",
+    secret: "outlittlesecret",
     saveUninitialized: true,
     resave: false,
   })
