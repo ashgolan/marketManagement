@@ -40,7 +40,7 @@ app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.set("trust proxy", 1);
+app.set("trust proxy", 1);
 session({
   store: new redisStore({ client: redisClient }),
   saveUninitialized: false,
