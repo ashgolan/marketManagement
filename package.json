@@ -6,11 +6,11 @@
   "type": "module",
   "scripts": {
     "deploy-server": "npm i",
-    "server": "node server.js",
+    "server": "node server/server.js",
     "client": "npm start --prefix client",
-    "copy": "cp -r client/build server/",
+    "copy": "cp -r /client/build ./",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "postbuild": "npm i --prefix client && npm run build --prefix client && npm run copy"
+    "postbuild": "npm i  --prefix /client && npm run build --prefix /client && npm run copy"
   },
   "keywords": [],
   "author": "",
