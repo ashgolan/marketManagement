@@ -140,7 +140,6 @@ export default function AddClient({ setMessage, message }) {
           <select
             name=""
             id=""
-            // value={newUser.isContractor === true ? "כן" : "לא"}
             defaultValue="בחר"
             onChange={(e) => {
               setNewUser((prev) => {

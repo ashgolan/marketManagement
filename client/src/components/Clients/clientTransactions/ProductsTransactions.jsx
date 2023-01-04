@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import "./ProductTransactions.css";
-export default function ProductsTransactions({
-  index,
-  transaction,
-  setChangeData,
-  setMessage,
-}) {
+export default function ProductsTransactions({ index, transaction }) {
   const [itemsInRow, setItemsInRow] = useState({
     productName: transaction.data[index]
       ? transaction.data[index].productName

@@ -40,9 +40,6 @@ export default function BidRow({
   const checkHandler = (e) => {
     const isFilled = validation();
     if (isFilled) {
-      // e.target.checked
-      //   ? localStorage.setItem(`row${numOfRow + 1}`, JSON.stringify(itemInRow))
-      //   : localStorage.removeItem(`row${numOfRow + 1}`);
       if (e.target.checked) {
         console.log(itemInRow.totalAmount);
         localStorage.setItem(`row${numOfRow + 1}`, JSON.stringify(itemInRow));

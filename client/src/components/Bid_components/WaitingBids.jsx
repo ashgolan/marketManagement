@@ -29,12 +29,12 @@ export default function WaitingBids({ setMessage, message }) {
       setFetchingStatus({ loading: true, error: false });
 
       if (choice === "delete") {
-        const { data } = await Api.delete("/bids", {
+        await Api.delete("/bids", {
           data: { _id: selectedOption.bidId },
         });
         setMessage({ status: true, message: "ההצעה נמחקה" });
       } else {
-        const { data } = Api.patch("/bids", {
+        Api.patch("/bids", {
           isApproved: true,
           _id: selectedOption.bidId,
         });
@@ -121,7 +121,6 @@ export default function WaitingBids({ setMessage, message }) {
         <select
           className="order-selection"
           onChange={(e) => {
-            // console.log(e.target.selectedOptions[0].value);
             setSelectedOption({
               bidId: e.target.selectedOptions[0].id,
               clientId: e.target.selectedOptions[0].value,

@@ -107,16 +107,6 @@ export default function Transaction({ client, transaction, setMessage }) {
           ></ProductsTransactions>
         );
       })}
-      {/* <div className="edit-delete-transaction">
-        <i className="fa-regular fa-pen-to-square"></i>
-
-        <img
-          onClick={() => setAddProductsRows((prev) => prev + 1)}
-          className="addProducts"
-          src="/img/addItem.png"
-        ></img>
-        <i class="fa-solid fa-trash-can"></i>
-      </div> */}
     </div>
   );
 }

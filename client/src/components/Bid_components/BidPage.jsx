@@ -42,12 +42,12 @@ export default function BidPage({ client, message, setMessage }) {
       setFetchingStatus({ loading: true, error: false });
       console.log(id);
       if (id === "newBid") {
-        const { data } = await Api.post("/bids", {
+        await Api.post("/bids", {
           ...bidObj,
           totalAmount: totalAmountOfBid,
         });
       } else {
-        const { data } = await Api.post("/transactions", {
+        await Api.post("/transactions", {
           owner: client._id,
           type: "buying",
           data: bidObj.data,
@@ -64,7 +64,6 @@ export default function BidPage({ client, message, setMessage }) {
     e.preventDefault();
     const allBidRows = [];
     const ls = Object.values(localStorage);
-    const lsKeys = Object.keys(localStorage);
     for (let item in ls) {
       if (localStorage.key(item) !== "userID")
         allBidRows.push(JSON.parse(ls[item]));

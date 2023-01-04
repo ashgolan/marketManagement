@@ -6,7 +6,6 @@ import { Api } from "../../../utils/Api";
 export default function TransactionContainer({ setMessage, message, client }) {
   const [fetchingStatus, setFetchingStatus] = useContext(FetchingStatus);
   const [totalAmount, setTotalAmount] = useState(0);
-  // const [clientTransactions, setClientTransactions] = useState([]);
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
@@ -28,7 +27,6 @@ export default function TransactionContainer({ setMessage, message, client }) {
           setMessage({ status: false, message: null });
           setFetchingStatus({ loading: false, error: false });
         }, 1000);
-        // setTotalAmount(getTotalAmount());
       } catch (e) {
         setMessage({ status: true, message: "... תקלה בקריאת הנתונים" });
         setTimeout(() => {

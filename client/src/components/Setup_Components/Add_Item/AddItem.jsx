@@ -22,7 +22,7 @@ export default function AddItem({ setaddItemToggle, setMessage, message }) {
     try {
       setFetchingStatus({ loading: true, error: false });
 
-      const { data } = await Api.post("/inventory", itemsValues);
+      await Api.post("/inventory", itemsValues);
       setFetchingStatus({ loading: false, error: false });
       setTimeout(() => {
         setMessage({ status: true, message: "המוצר נוסף לרשימה" });

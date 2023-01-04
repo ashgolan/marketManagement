@@ -89,25 +89,22 @@ export default function Client({
         });
         setMessage({ status: true, message: "הפרטים עודכנו בהצלחה" });
       } else if (stateOfAction === "makeNotActive") {
-        const { data } = await Api.patch("/clients/", {
+        await Api.patch("/clients/", {
           isActive: false,
           _id: client._id,
         });
-        // const { data } = await axios.delete("http://localhost:5000/clients/", {
-        //   data: { _id: client._id },
-        // });
+
         setJustForRender((prev) => !prev);
-        // setClient(() => null);
         setMessage({ status: true, message: "תיק של הקליינט מושבט כרגע " });
       } else if (stateOfAction === "makeIsActive") {
-        const { data } = await Api.patch("/clients/", {
+        await Api.patch("/clients/", {
           isActive: true,
           _id: client._id,
         });
         setJustForRender((prev) => !prev);
         setMessage({ status: true, message: "תיק של קליינט הופעל מחדש" });
       } else if (stateOfAction === "sendMail") {
-        const { data } = await Api.post("/sendMail/", {
+        await Api.post("/sendMail/", {
           mail: client.email,
           name: client.firstName,
           amount: totalAmount,
