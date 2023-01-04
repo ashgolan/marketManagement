@@ -11,7 +11,9 @@ import session from "express-session";
 import { userRouter } from "./router/user.router.js";
 import * as url from "url";
 import path from "path";
+import store from "connect-redis";
 
+const RedisStore = store(session);
 const __dirname = url.fileURLToPath(new URL("./", import.meta.url));
 
 export const app = Express();
