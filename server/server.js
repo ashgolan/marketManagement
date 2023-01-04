@@ -15,8 +15,10 @@ import RedisStore from "connect-redis";
 import { createClient } from "redis";
 const redisStore = RedisStore(session);
 const __dirname = url.fileURLToPath(new URL("./", import.meta.url));
-
-let redisClient = createClient({ legacyMode: true });
+let redisClient = createClient({
+  legacyMode: true,
+  url: "redis://redis:6379",
+});
 redisClient.connect().catch(console.error);
 
 export const app = Express();
