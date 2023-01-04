@@ -11,18 +11,14 @@ import session from "express-session";
 import { userRouter } from "./router/user.router.js";
 import * as url from "url";
 import path from "path";
-// import RedisStore from "connect-redis";
-// import { createClient } from "redis";
-// RedisStore = require("connect-redis")(session);
-// const store = RedisStore(session);
+import "./DB/mongoose.js";
+const PORT = process.env.PORT || 5000;
+
 const __dirname = url.fileURLToPath(new URL("./", import.meta.url));
-// let redisClient = createClient({ legacyMode: true });
-// redisClient.connect().catch(console.error);
+const publicPath = path.join(__dirname, "build");
 
 export const app = Express();
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "build", "index.html"));
-});
+app.use(Express.static(publicPath));
 
 app.use(Express.json());
 app.use(cors());
@@ -34,19 +30,9 @@ app.use(
     saveUninitialized: false,
   })
 );
-// app.use(
-//   session({
-//     store: new RedisStore({ client: redisClient }),
-//     saveUninitialized: false,
-//     secret: "outlittlesecret",
-//     resave: false,
-//   })
-// );
+
 app.use(passport.initialize());
 app.use(passport.session());
-// app.use(session({ store: new store(), secret: "outlittlesecret" }));
-
-// app.set("trust proxy", 1);
 
 app.use(function (req, res, next) {
   if (!req.session) {
@@ -78,4 +64,11 @@ app.post("/sendMail", (req, res) => {
   } catch (e) {
     res.send(e.message);
   }
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "build", "index.html"));
+});
+app.listen(PORT, () => {
+  console.log("listining to port ", PORT);
 });
