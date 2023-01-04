@@ -9,6 +9,14 @@ import { sendMail } from "./emails/account.js";
 import passport from "passport";
 import session from "express-session";
 import { userRouter } from "./router/user.router.js";
+import * as url from "url";
+import path from "path";
+
+const __dirname = url.fileURLToPath(new URL("./", import.meta.url));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "build", "index.html"));
+});
 
 export const app = Express();
 app.use(Express.json());
