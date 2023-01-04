@@ -11,13 +11,13 @@ import session from "express-session";
 import { userRouter } from "./router/user.router.js";
 import * as url from "url";
 import path from "path";
-import RedisStore from "connect-redis";
-import { createClient } from "redis";
+// import RedisStore from "connect-redis";
+// import { createClient } from "redis";
 // RedisStore = require("connect-redis")(session);
-const store = RedisStore(session);
+// const store = RedisStore(session);
 const __dirname = url.fileURLToPath(new URL("./", import.meta.url));
-let redisClient = createClient({ legacyMode: true });
-redisClient.connect().catch(console.error);
+// let redisClient = createClient({ legacyMode: true });
+// redisClient.connect().catch(console.error);
 
 export const app = Express();
 app.get("*", (req, res) => {
@@ -27,13 +27,13 @@ app.get("*", (req, res) => {
 app.use(Express.json());
 app.use(cors());
 
-// app.use(
-//   session({
-//     secret: "outlittlesecret",
-//     resave: false,
-//     saveUninitialized: false,
-//   })
-// );
+app.use(
+  session({
+    secret: "outlittlesecret",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 // app.use(
 //   session({
 //     store: new RedisStore({ client: redisClient }),
@@ -44,7 +44,7 @@ app.use(cors());
 // );
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(session({ store: new RedisStore(options), secret: "outlittlesecret" }));
+// app.use(session({ store: new store(), secret: "outlittlesecret" }));
 
 // app.set("trust proxy", 1);
 
