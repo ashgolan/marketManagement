@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import "./TransactionContainer.css";
 import Transaction from "./Transaction";
@@ -43,8 +42,6 @@ export default function TransactionContainer({ setMessage, message, client }) {
 
   return (
     <div style={{ minHeight: "77vh" }}>
-      {/* {message.status && <h5 className="message">{message.message}</h5>} */}
-
       <div className="total-header">
         <label htmlFor="">ש"ח</label>
         <label htmlFor="">{totalAmount}</label>

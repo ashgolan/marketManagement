@@ -19,11 +19,7 @@ export default function Client({
   const [action, setAction] = useState("makeIsActive");
   const [isChanged, setIsChanged] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
-  const [clientDetails, setClientDetails] = useState({
-    firstName: client.firstName,
-    fatherName: client.fatherName,
-    lastName: client.lastName,
-  });
+  const [clientDetails, setClientDetails] = useState({});
   const navigate = useNavigate();
   const [totalAmount, setTotalAmount] = useState(0);
   const [clientChartData, setClientChartData] = useState({
@@ -53,8 +49,14 @@ export default function Client({
     return count;
   };
   useEffect(() => {
+    setClientDetails({
+      firstName: client.firstName,
+      fatherName: client.fatherName,
+      lastName: client.lastName,
+      isActive: client.isActive,
+    });
     setTotalAmount(getTotalAmount());
-  }, [clientTransactions, totalAmount, client]);
+  }, [clientTransactions, totalAmount]);
 
   const openClientPage = () => {
     setClient(client);
@@ -113,7 +115,6 @@ export default function Client({
         setJustForRender((prev) => !prev);
         setMessage({ status: true, message: "תזכורת לקליינט נשלחה בהצלחה" });
       }
-      // delete client and render
       setTimeout(() => {
         setMessage({ status: false, message: null });
         setFetchingStatus({ loading: false, error: false });
@@ -131,13 +132,13 @@ export default function Client({
       <form className="form-container">
         <input
           disabled={isDisabled}
-          value={client.firstName}
+          value={clientDetails.firstName}
           onChange={(e) =>
             setClientDetails((prev) => {
               return { ...prev, firstName: e.target.value };
             })
           }
-          style={{ color: client.isActive ? "white" : "gray" }}
+          style={{ color: clientDetails.isActive ? "white" : "gray" }}
           className="clientProp"
         ></input>
         <i
@@ -152,7 +153,7 @@ export default function Client({
 
         <input
           disabled={isDisabled}
-          value={client.fatherName}
+          value={clientDetails.fatherName}
           onChange={(e) =>
             setClientDetails((prev) => {
               return { ...prev, fatherName: e.target.value };
@@ -163,17 +164,17 @@ export default function Client({
         />
         <input
           disabled={isDisabled}
-          value={client.lastName}
+          value={clientDetails.lastName}
           onChange={(e) =>
             setClientDetails((prev) => {
               return { ...prev, lastName: e.target.value };
             })
           }
-          style={{ color: client.isActive ? "white" : "gray" }}
+          style={{ color: clientDetails.isActive ? "white" : "gray" }}
           className="clientProp"
         />
         <label
-          style={{ color: client.isActive ? "white" : "gray" }}
+          style={{ color: clientDetails.isActive ? "white" : "gray" }}
           className="clientProp"
         >
           {" "}
@@ -181,19 +182,19 @@ export default function Client({
         </label>
         <label
           className="clientProp"
-          style={{ color: client.isActive ? "white" : "gray" }}
+          style={{ color: clientDetails.isActive ? "white" : "gray" }}
         >
           ש"ח
         </label>
         <label
           className="clientProp"
-          style={{ color: client.isActive ? "white" : "gray" }}
+          style={{ color: clientDetails.isActive ? "white" : "gray" }}
         >
           {clientTransactions.length &&
             clientTransactions[clientTransactions.length - 1].date}
         </label>
       </form>
-      {client.isActive && (
+      {clientDetails.isActive && (
         <div className="client_actions">
           <div className="save-actions">
             {isChanged && (

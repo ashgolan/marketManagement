@@ -1,4 +1,3 @@
-import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState, useContext } from "react";
@@ -19,13 +18,9 @@ export default function SetupPage() {
   });
   const [inventoryProducts, setInventoryProducts] = useState([]);
   useEffect(() => {
-    const myItem = localStorage.getItem("userID");
-    localStorage.clear();
-    localStorage.setItem("userID", myItem);
     const getData = async () => {
       try {
         const { data } = await Api.get("/inventory");
-        console.log(data);
         setInventoryProducts(data);
       } catch (e) {
         console.log(e.message);
@@ -43,39 +38,59 @@ export default function SetupPage() {
       )}
       <div>
         <form className="Item_form">
+          <input id="comment" className="head" value="הערה" disabled></input>
           <input
-            id="comment"
-            className="input_show_item head"
-            value="הערה"
+            id="price"
+            className="head"
+            value="למכירה"
+            style={{ width: "10%" }}
             disabled
           ></input>
           <input
             id="price"
-            className="input_show_item head"
-            value="מחיר"
+            className="head"
+            value="רווח"
+            style={{ width: "5%" }}
+            disabled
+          ></input>
+          <input
+            id="price"
+            className="head"
+            value="מעמ"
+            style={{ width: "7%" }}
+            disabled
+          ></input>
+          <input
+            id="price"
+            className="head"
+            value="נטו"
+            style={{ width: "5%" }}
             disabled
           ></input>
           <input
             id="amount"
-            className="input_show_item head"
+            className="head"
             value="כמות"
+            style={{ width: "5%" }}
             disabled
           ></input>
           <input
             id="category"
-            className="input_show_item head"
+            className="head"
+            style={{ width: "10%" }}
             value="קטגוריה"
             disabled
           ></input>
           <input
             id="serial"
-            className="input_show_item head"
+            className="head"
             value="מקט"
+            style={{ width: "7%" }}
             disabled
           ></input>
           <input
             id="productName"
-            className="input_show_item head"
+            className="head"
             value="מוצר"
             disabled
           ></input>

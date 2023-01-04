@@ -131,7 +131,7 @@ export default function BidRow({
         onChange={(e) => setBySelectedValue(e)}
       ></input>
       <datalist id="products" ref={selectedItem}>
-        <option defaultValue="בחר מוצר" selected disabled>
+        <option defaultValue="בחר מוצר" disabled>
           בחר מוצר
         </option>
         {allItems}

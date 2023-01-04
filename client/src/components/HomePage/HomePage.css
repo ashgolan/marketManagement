@@ -20,3 +20,22 @@ a > .home-log-btn {
   color: whitesmoke;
   width: 20rem;
 }
+.home-icon {
+  width: 5%;
+  transform: translate(11%, 100%);
+  animation: circle 1s linear infinite;
+}
+@keyframes circle {
+  0% {
+    transform: translate(11%, 100%);
+  }
+  25% {
+    transform: translate(11%, 90%);
+  }
+  50% {
+    transform: translate(11%, 80%);
+  }
+  75% {
+    transform: translate(11%, 90%);
+  }
+}

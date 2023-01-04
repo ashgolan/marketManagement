@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Clients from "./components/Clients/Clients";
 import "./App.css";
 import HomePage from "./components/HomePage/HomePage";

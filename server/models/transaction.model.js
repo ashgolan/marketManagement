@@ -34,17 +34,4 @@ transactionsSchema.pre("save", function (next) {
   next();
 });
 
-// transactionsSchema.pre("updateOne", function (next) {
-//   const transaction = this;
-//   console.log("before updating ...");
-//   console.log(transaction.type);
-//   if (transaction.type === "buying") {
-//     let count = 0;
-//     transaction.data.forEach((element) => {
-//       count += element.price;
-//     });
-//     transaction.totalAmount = count;
-//   }
-//   next();
-// });
 export const Transaction = model("Transaction", transactionsSchema);

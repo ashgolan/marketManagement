@@ -3,7 +3,7 @@
 }
 
 .Item_form {
-  width: 70%;
+  width: 80%;
   padding: 0.3% 0;
   display: flex;
   justify-content: space-around;
@@ -11,7 +11,7 @@
   margin: auto;
 }
 .input_show_item {
-  width: 12.5%;
+  width: 14%;
   padding: 1%;
   border: none;
   background-color: rgb(48, 45, 45);

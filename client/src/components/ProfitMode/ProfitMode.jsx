@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import axios from "axios";
 import BuyingChart from "./BuyingChart";
 import { Api } from "../../utils/Api";
 export default function ProfitMode({ clientChartData }) {

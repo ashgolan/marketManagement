@@ -49,6 +49,7 @@
   align-items: center;
   justify-content: center;
   border: 3px rgba(175, 143, 143, 0.603) solid;
+  background-color: whitesmoke;
   background-image: url("/public/img/footer-transaction-card3.png");
   background-position: bottom left;
   background-repeat: no-repeat;

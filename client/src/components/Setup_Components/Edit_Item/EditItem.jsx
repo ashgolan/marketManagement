@@ -1,4 +1,3 @@
-import axios from "axios";
 import React from "react";
 import "./EditItem.css";
 import { FetchingStatus } from "../../../utils/context";
@@ -12,8 +11,6 @@ export default function EditItem({
   setChangeStatus,
   itemsValues,
   setMessage,
-  dispatch,
-  state,
 }) {
   // eslint-disable-next-line
   const [fetchingStatus, setFetchingStatus] = useContext(FetchingStatus);
@@ -32,12 +29,7 @@ export default function EditItem({
   const updateData = async () => {
     try {
       setFetchingStatus({ loading: true, error: false });
-      console.log(itemId);
-      console.log(itemsValues);
-      await Api.patch(`/inventory/`, {
-        ...itemsValues,
-        _id: itemId,
-      });
+      await Api.patch(`/inventory/`, { ...itemsValues, _id: itemId });
       setFetchingStatus({ loading: false, error: false });
     } catch {
       setFetchingStatus({ loading: false, error: true });
@@ -45,9 +37,9 @@ export default function EditItem({
     }
   };
 
-  const editHandler = (e) => {
+  const editHandler = async (e) => {
     e.preventDefault();
-
+    await setItemInChange(!itemInChange);
     changeStatus.editText === "עריכה" &&
       localStorage.setItem("itemData", JSON.stringify(itemsValues));
 
@@ -58,13 +50,11 @@ export default function EditItem({
         return;
       }
       const isChanged = isInputsChanged();
-
       isChanged && updateData();
       setMessage({ status: false, message: null });
       localStorage.removeItem("itemData");
     }
 
-    setItemInChange(!itemInChange);
     setChangeStatus((prev) => {
       return {
         editText: prev.editText === "עריכה" ? "אישור" : "עריכה",

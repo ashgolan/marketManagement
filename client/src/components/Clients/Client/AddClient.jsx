@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
@@ -35,6 +34,15 @@ export default function AddClient({ setMessage, message }) {
         setMessage({ status: false, message: null });
         setFetchingStatus({ loading: false, error: false });
       }, 1000);
+      setNewUser({
+        firstName: "",
+        fatherName: "",
+        lastName: "",
+        phone: "",
+        email: "",
+        comment: "",
+        isContractor: "",
+      });
     } catch (e) {
       setFetchingStatus({ loading: false, error: true });
       setMessage({ status: true, message: "לפי מס.הפלאפון . השם קיים במערכת" });

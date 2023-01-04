@@ -1,6 +1,4 @@
-import axios from "axios";
 import React, { useState } from "react";
-import { useEffect } from "react";
 import DeleteItem from "../Delete_Item/DeleteItem";
 import EditItem from "../Edit_Item/EditItem";
 import "./Item_Table.css";
@@ -23,37 +21,13 @@ export default function ItemsTable({
     category: item.category,
     amount: item.amount,
     price: item.price,
+    profit: item.profit,
+    tax: item.tax,
+    finalPrice: item.finalPrice,
     comment: item.comment,
   });
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const { data } = await axios.get("http://localhost:5000/inventory");
-  //       console.log(data);
-  //       setInventoryProducts(data);
-  //     } catch (e) {
-  //       console.log(e.message);
-  //     }
-  //   };
-  //   getData();
-  // }, [inventoryProducts]);
   const [message, setMessage] = useState({ status: false, message: null });
-  // useEffect(() => {
-  //   const getData = () => {
-  // const thisItem = inventoryProducts.find((t) => t._id === item._id);
-  // setItemsValues((prev) => {
-  //   return {
-  //     productName: item.productName,
-  //     serial: item.serial,
-  //     category: item.category,
-  //     amount: item.amount,
-  //     price: item.price,
-  //     comment: item.comment,
-  //   };
-  // });
-  //   };
-  //   getData();
-  // }, [item._id, inventoryProducts]);
+
   return (
     <div>
       <form className="Item_form" key={`form${item.id}`}>
@@ -69,13 +43,69 @@ export default function ItemsTable({
           }}
         ></input>
         <input
+          id="finalPrice"
+          type="Number"
+          className="input_show_item"
+          disabled={true}
+          value={itemsValues.finalPrice}
+          style={{ width: "10%" }}
+        ></input>
+        <input
+          id="profit"
+          type="text"
+          className="input_show_item"
+          disabled={changeStatus.disabled}
+          value={itemsValues.profit}
+          style={{ width: "5%" }}
+          onChange={(e) => {
+            setItemsValues((prev) => {
+              return {
+                ...prev,
+                profit: e.target.value,
+                finalPrice:
+                  prev.price +
+                  prev.price * +e.target.value +
+                  (prev.price + prev.price * +e.target.value) * prev.tax,
+              };
+            });
+          }}
+        ></input>
+        <input
+          id="tax"
+          type="text"
+          className="input_show_item"
+          style={{ width: "7%" }}
+          disabled={changeStatus.disabled}
+          value={itemsValues.tax}
+          onChange={(e) => {
+            setItemsValues((prev) => {
+              return {
+                ...prev,
+                tax: e.target.value,
+                finalPrice:
+                  prev.price +
+                  prev.price * prev.profit +
+                  (prev.price + prev.price * prev.profit) * +e.target.value,
+              };
+            });
+          }}
+        ></input>
+        <input
           id="price"
           className="input_show_item"
           disabled={changeStatus.disabled}
           value={itemsValues.price}
+          style={{ width: "5%" }}
           onChange={(e) => {
             setItemsValues((prev) => {
-              return { ...prev, price: e.target.value };
+              return {
+                ...prev,
+                price: +e.target.value,
+                finalPrice:
+                  +e.target.value +
+                  +e.target.value * prev.profit +
+                  (+e.target.value + +e.target.value * prev.profit) * prev.tax,
+              };
             });
           }}
         ></input>
@@ -84,6 +114,7 @@ export default function ItemsTable({
           className="input_show_item"
           disabled={changeStatus.disabled}
           value={itemsValues.amount}
+          style={{ width: "5%" }}
           onChange={(e) => {
             setItemsValues((prev) => {
               return { ...prev, amount: e.target.value };
@@ -93,6 +124,7 @@ export default function ItemsTable({
         <input
           id="category"
           className="input_show_item"
+          style={{ width: "10%" }}
           disabled={changeStatus.disabled}
           value={itemsValues.category}
           onChange={(e) => {
@@ -106,6 +138,7 @@ export default function ItemsTable({
           className="input_show_item"
           disabled={changeStatus.disabled}
           value={itemsValues.serial}
+          style={{ width: "7%" }}
           onChange={(e) => {
             setItemsValues((prev) => {
               return { ...prev, serial: e.target.value };

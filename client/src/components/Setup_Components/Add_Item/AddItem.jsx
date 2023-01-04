@@ -1,11 +1,10 @@
-import axios from "axios";
 import React from "react";
 import { useContext } from "react";
 import { useState } from "react";
 import { Api } from "../../../utils/Api";
 import { FetchingStatus } from "../../../utils/context";
 import "./Add_item.css";
-export default function AddItem({ setaddItemToggle }) {
+export default function AddItem({ setaddItemToggle, setMessage, message }) {
   // eslint-disable-next-line
   const [fetchingStatus, setFetchingStatus] = useContext(FetchingStatus);
   const [itemsValues, setItemsValues] = useState({
@@ -14,15 +13,26 @@ export default function AddItem({ setaddItemToggle }) {
     category: "",
     amount: "",
     price: "",
+    profit: "",
+    tax: "",
     comment: null,
   });
 
   const addItem = async () => {
     try {
       setFetchingStatus({ loading: true, error: false });
+
       const { data } = await Api.post("/inventory", itemsValues);
       setFetchingStatus({ loading: false, error: false });
+      setTimeout(() => {
+        setMessage({ status: true, message: "המוצר נוסף לרשימה" });
+        setFetchingStatus({ loading: false, error: false });
+      }, 1000);
     } catch {
+      setTimeout(() => {
+        setMessage({ status: true, message: "תקלה בקריאת הנתונים" });
+        setFetchingStatus({ loading: false, error: true });
+      }, 1000);
       setFetchingStatus({ loading: false, error: true });
     }
   };
@@ -53,15 +63,47 @@ export default function AddItem({ setaddItemToggle }) {
           value={itemsValues.comment}
         ></input>
         <input
+          id="profit"
+          type="Number"
+          className="add_item"
+          placeholder="רווח"
+          value={itemsValues.profit}
+          onChange={(e) => {
+            setItemsValues((prev) => {
+              return {
+                ...prev,
+                profit: e.target.value,
+              };
+            });
+          }}
+        ></input>
+        <input
+          id="tax"
+          placeholder="מעמ"
+          className="add_item"
+          value={itemsValues.tax}
+          onChange={(e) => {
+            setItemsValues((prev) => {
+              return {
+                ...prev,
+                tax: e.target.value,
+              };
+            });
+          }}
+        ></input>
+        <input
           id="price"
           required
           className="add_item"
           placeholder="מחיר"
-          onChange={(e) =>
+          onChange={(e) => {
             setItemsValues((prev) => {
-              return { ...prev, price: e.target.value };
-            })
-          }
+              return {
+                ...prev,
+                price: e.target.value,
+              };
+            });
+          }}
           value={itemsValues.price}
         ></input>
         <input

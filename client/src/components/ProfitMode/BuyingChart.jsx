@@ -5,7 +5,6 @@ import "./ProfitMode.css";
 import { useEffect } from "react";
 
 export default function BuyingChart({ buyingData }) {
-  console.log(buyingData);
   const [buyingChartData, setBuyingChartData] = useState({
     labels: "",
     datasets: [

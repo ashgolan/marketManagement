@@ -5,17 +5,24 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url("/public/img/home-background1.png");
-  /* background-position: bottom left; */
-  /* background-repeat: no-repeat; */
-
-  /* background-image: url("/public/img/footer-transaction-card2.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: bottom; */
+  background: url("/public/img/home-background2.png");
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+@media screen and (max-width: 700px) {
+  html {
+    font-size: calc(15px + 0.15vw);
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    height: 100vw;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
 }

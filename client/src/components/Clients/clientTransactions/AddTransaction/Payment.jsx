@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Api } from "../../../../utils/Api";
@@ -6,9 +5,6 @@ import { FetchingStatus } from "../../../../utils/context";
 import "./Payment.css";
 export default function AddTransactionHome({ client, setMessage, message }) {
   const navigate = useNavigate();
-  const gotoPage = (page) => {
-    navigate(`/${page}`);
-  };
   const [fetchingStatus, setFetchingStatus] = useContext(FetchingStatus);
 
   const [newPayment, setNewPayment] = useState({

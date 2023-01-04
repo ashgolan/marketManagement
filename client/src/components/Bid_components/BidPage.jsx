@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import "./BidPage.css";
 import { useState } from "react";
 import BidRow from "./BidRow";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { FetchingStatus } from "../../utils/context";
@@ -18,8 +17,6 @@ export default function BidPage({ client, message, setMessage }) {
   const [inventoryData, setInventoryData] = useState([]);
   const [bid, setBid] = useState({
     clientId: client._id,
-    // date: new Date().toLocaleDateString(),
-    // time: new Date().toLocaleTimeString(),
     isApproved: false,
     data: [],
     comment: "",
@@ -142,7 +139,7 @@ export default function BidPage({ client, message, setMessage }) {
           alt=""
         />
         <div className="save-pdf-data">
-          <i class="fa-solid fa-square-plus"></i>
+          <i className="fa-solid fa-square-plus"></i>
           <label
             style={{ cursor: "pointer" }}
             id="newBuying"

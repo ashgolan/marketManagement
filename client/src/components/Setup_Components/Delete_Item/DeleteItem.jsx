@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 import { useContext } from "react";
 import "./Delete_Item.css";
@@ -19,8 +18,7 @@ export default function DeleteItem({
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data } = await axios.get("http://localhost:5000/inventory");
-        console.log(data);
+        const { data } = await Api.get("/inventory");
         setInventoryProducts(data);
       } catch (e) {
         console.log(e.message);

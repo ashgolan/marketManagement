@@ -4,21 +4,12 @@ import "./HomePage.css";
 export default function HomePage({ loginState, setLoginState }) {
   return (
     <div className="homepage-container">
-      <img
-        style={{ width: "5%", transform: "translate(10%,100%)" }}
-        src="/img/robic.png"
-        alt=""
-      />
+      <img className="home-icon" src="/img/robic.png" alt="" />
 
       <label htmlFor="">מנוהל</label>
       <label style={{ fontSize: "2rem" }} htmlFor="">
         לניהול מושלם
       </label>
-      {console.log(
-        !localStorage.getItem("userID"),
-        localStorage.getItem("userID") === "null",
-        !loginState
-      )}
       {(!localStorage.getItem("userID") ||
         localStorage.getItem("userID") === "null" ||
         loginState) && (
