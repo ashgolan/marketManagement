@@ -40,7 +40,7 @@ app.use(passport.session());
 
 // app.set("trust proxy", 1);
 session({
-  store: new RedisStore({ client: redisClient }),
+  store: new redisStore({ client: redisClient }),
   saveUninitialized: false,
   secret: "outlittlesecret",
   resave: false,
