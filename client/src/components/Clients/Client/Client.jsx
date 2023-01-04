@@ -72,7 +72,6 @@ export default function Client({
   };
   const saveDeleteOrUpdate = async (stateOfAction) => {
     try {
-      console.log(action);
       setFetchingStatus({ loading: true, error: false });
       if (stateOfAction === "update") {
         const { data } = await Api.patch("/clients/", {
@@ -94,14 +93,12 @@ export default function Client({
           _id: client._id,
         });
 
-        setJustForRender((prev) => !prev);
         setMessage({ status: true, message: "תיק של הקליינט מושבט כרגע " });
       } else if (stateOfAction === "makeIsActive") {
         await Api.patch("/clients/", {
           isActive: true,
           _id: client._id,
         });
-        setJustForRender((prev) => !prev);
         setMessage({ status: true, message: "תיק של קליינט הופעל מחדש" });
       } else if (stateOfAction === "sendMail") {
         await Api.post("/sendMail/", {
@@ -109,13 +106,13 @@ export default function Client({
           name: client.firstName,
           amount: totalAmount,
         });
-        setJustForRender((prev) => !prev);
         setMessage({ status: true, message: "תזכורת לקליינט נשלחה בהצלחה" });
       }
       setTimeout(() => {
         setMessage({ status: false, message: null });
         setFetchingStatus({ loading: false, error: false });
       }, 1000);
+      setJustForRender((prev) => !prev);
     } catch (e) {
       setFetchingStatus({ loading: false, error: true });
       setMessage({
