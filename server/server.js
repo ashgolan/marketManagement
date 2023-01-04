@@ -14,11 +14,11 @@ import path from "path";
 
 const __dirname = url.fileURLToPath(new URL("./", import.meta.url));
 
+export const app = Express();
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "build", "index.html"));
 });
 
-export const app = Express();
 app.use(Express.json());
 app.use(cors());
 
